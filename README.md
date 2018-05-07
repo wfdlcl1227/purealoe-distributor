@@ -1,6 +1,6 @@
 ## Pure Aloe Distributor App
 
-The Pure Aloe Distributor App is written in Node.js and built to run on Heroku. It is a companion to the <a href="https://github.com/trailheadapps/purealoe" target="_blank">Pure Aloe</a> app, built on Salesforce. Using the two apps, you can explore how to integrate decoupled applications with Platform Events.
+The Pure Aloe Distributor App is written in Node.js and built to run on Heroku. It is a companion to the <a href="https://github.com/trailheadapps/purealoe" target="_blank">Pure Aloe</a> app, built on Salesforce. Using the two apps, you can explore how to integrate decoupled applications with Salesforce via Platform Events.
 
 ## Installation Instructions
 
