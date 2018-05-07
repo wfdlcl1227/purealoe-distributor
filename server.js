@@ -61,7 +61,7 @@ let getBundleDetails = (req, res) => {
 
 // Subscribe to Platform Events
 let subscribeToPlatformEvents = () => {
-    var client = new faye.Client(org.oauth.instance_url + '/cometd/41.0/');
+    var client = new faye.Client(org.oauth.instance_url + '/cometd/42.0/');
     client.setHeader('Authorization', 'OAuth ' + org.oauth.access_token);
     client.subscribe('/event/Bundle_Submitted__e', function (message) {
         console.log('#### got Bundle_Submitted__e event');
