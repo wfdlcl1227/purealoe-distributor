@@ -16,12 +16,12 @@
     cd purealoe-distributor
     ```
 
-1. Create a Heroku app:
+1. Create a Heroku app and give it a name:
     ```
-    heroku create some_app_name
+    heroku create *your_app_name*
     ```
 
-1. Create the Heroku config variables:
+1. Set the config variables for your app:
     ```
     heroku config:set SF_CLIENT_ID=your_connected_client_id
     heroku config:set SF_CLIENT_SECRET=your_connected_client_secret
