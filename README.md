@@ -12,7 +12,7 @@ In the commands below, terms wrapped in \*asterisks\* signify places where you'l
 
 1. Log in (at least once) as that user via your browser. For scratch orgs, use <a href="https://test.salesforce.com" target="_blank">https://test.salesforce.com</a> as the login URL. For Develper Edition orgs, use <a href="https://login.salesforce.com" target="_blank">https://login.salesforce.com</a>. Choose to not register your phone number.
 
-1. In Setup > Users > Permission Sets, assign your integration user to the PureAloe permission set.
+1. In Setup > Users > Permission Sets, assign your integration user to the purealoe permission set.
 
 1. Create a Connected App in a Developer Edition org (do not use your scratch org).
 
