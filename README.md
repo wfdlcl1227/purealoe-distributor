@@ -22,9 +22,9 @@ In the commands below, terms wrapped in \*asterisks\* signify places where you'l
     cd purealoe-distributor
     ```
 
-1. Create a Heroku app: 
-	```
-    heroku create some_app_name
+1. Create a Heroku app and give it a name:
+    ```
+    heroku create *your_app_name*
     ```
 
 1. Set the Heroku config variables (replace with values from your connected app):
