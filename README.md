@@ -48,3 +48,5 @@ In the commands below, terms wrapped in \*asterisks\* signify places where you'l
     ```
     heroku run:local npm start
     ```
+
+**Note:** If you're using a scratch org for this integration, keep in mind that you'll need to repeat the above steps and re-set your Heroku app's config variables when your scratch org expires.
