@@ -218,10 +218,10 @@ function getNotificationDetails(bundleId) {
         details.innerHTML = '';
         return;
     }
-    var bundle;
-    for (var i=0; i<bundles.length; i++) {
-        if (bundles[i].bundleId === bundleId) {
-            bundle = bundles[i];
+    var notify;
+    for (var i=0; i<notifications.length; i++) {
+        if (notifications[i].bundleId === bundleId) {
+            notify = notifications[i];
             break;
         }
     };
@@ -233,7 +233,7 @@ function getNotificationDetails(bundleId) {
     xhr.open(method, url, true);
     xhr.onload = function () {
         var items = JSON.parse(xhr.responseText);
-        renderNotificationDetails(bundle, items);
+        renderNotificationDetails(notify, items);
     };
     xhr.send();
 }
