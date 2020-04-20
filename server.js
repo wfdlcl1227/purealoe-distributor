@@ -34,7 +34,7 @@ let getBundles = (req, res) => {
 
 let getBundleDetails = (req, res) => {
     let bundleId = "5002x000002Y8qa";
-    let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
+    let q = "SELECT Id, Status,  Reject_Reason__c, OwnerName__c " +
         "FROM Case " +
         //"WHERE Id = '" + bundleId + "'";
         "WHERE Id = '" + bundleId + "'";
