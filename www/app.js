@@ -146,7 +146,7 @@ function getNotificationList() {
     xhr.open(method, url, true);
     xhr.onload = function () {
         console.log(xhr.responseText);
-        bundles = JSON.parse(xhr.responseText);
+        notifications = JSON.parse(xhr.responseText);
         renderNotificationList();
     };
     xhr.send();
