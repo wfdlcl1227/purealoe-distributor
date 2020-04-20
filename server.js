@@ -71,9 +71,9 @@ let getNotificationDetails = (req, res) => {
             let prettyBundleItems = [];
             bundleItems.forEach(bundleItem => {
                 prettyBundleItems.push({
-                    status: bundleItem.Status,
-                    reason: bundleItem.Reject_Reason__c,
-                    name: bundleItem.OwnerName__c,
+                    status: bundleItem.get("Status"),
+                    reason: bundleItem.get("Reject_Reason__c"),
+                    name: bundleItem.get("OwnerName__c")
                 });
             });
             res.json(prettyBundleItems);
