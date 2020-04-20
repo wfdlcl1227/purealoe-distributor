@@ -46,17 +46,16 @@ function renderBundleDetails(bundle, items) {
     var html = `
         <table class="table">
             <tr>
-                <th colspan="2">Product</th>
-                <th>MSRP</th>
-                <th>Qty</th>
+                <th>Status</th>
+                <th>Reason</th>
+                <th>Agent Name</th>
             </tr>`;
     items.forEach(function(item) {
         html = html + `
             <tr>
-                <td><img src="${item.pictureURL}" style="height:50px"/></td>
-                <td>${item.productTitle}</td>
-                <td>$${item.price}</td>
-                <td>${item.qty}</td>
+                <td>${item.Status}</td>
+                <td>$${item.Reject_Reason__c}</td>
+                <td>${item.OwnerName__c}</td>
             </tr>`
     });
     html = html + "</table>"    
