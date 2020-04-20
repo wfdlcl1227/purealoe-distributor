@@ -232,7 +232,9 @@ function getNotificationDetails(bundleId) {
 
     xhr.open(method, url, true);
     xhr.onload = function () {
+        debugger;
         var items = JSON.parse(xhr.responseText);
+
         renderNotificationDetails(notify, items);
     };
     xhr.send();
