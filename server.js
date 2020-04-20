@@ -14,10 +14,9 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/www'));
 
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('myevent', function (data) {
-      console.log(data);
-    });
-    
-    
+    socket.emit('news', { hello: 'world' }); 
+});
+
+io.on('myevent', function (data) {
+  console.log(data);
 });
