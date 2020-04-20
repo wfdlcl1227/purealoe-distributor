@@ -4,5 +4,8 @@
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('myevent', { my: 'data' });
+    
+  socket.on('myevent2', function (data) {
+    console.log(data);
   });
 </script>
