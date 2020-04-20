@@ -32,10 +32,35 @@ let getBundles = (req, res) => {
 
 };
 
-let getBundleDetails = (req, res) => {
+
+let getNotifications = (req, res) => {
+    debugger;
+    let q = "SELECT Id, Name, Description__c, Qty__c FROM Bundle__c WHERE Status__c='Submitted to Distributors'";
+    org.query({ query: q }, (err, resp) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            let notifications = resp.records;
+            let prettyBundles = [];
+            notifications.forEach(bundle => {
+                prettyBundles.push({
+                    bundleId: bundle.get("Id"),
+                    bundleName: bundle.get("Name"),
+                    bundleDescription: bundle.get("Description__c"),
+                    qty: bundle.get("Qty__c")
+                });
+            });
+            res.json(prettyBundles);
+        }
+    });
+};
+
+let getNotificationDetails = (req, res) => {
     let bundleId = "5002x000002Y8qa";
-    let q = "SELECT Id, Status, Reject_Reason__c, OwnerName__c " +
+    let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
         "FROM Case " +
+        //"WHERE Id = '" + bundleId + "'";
         "WHERE Id = '" + bundleId + "'";
     org.query({ query: q }, (err, resp) => {
         if (err) {
@@ -46,9 +71,37 @@ let getBundleDetails = (req, res) => {
             let prettyBundleItems = [];
             bundleItems.forEach(bundleItem => {
                 prettyBundleItems.push({
-                    Status: bundleItem.get("Status"),
-                    Reason: bundleItem.get("Reject_Reason__c"),
-                    name: bundleItem.get("OwnerName__c")
+                    status: bundleItem.Status,
+                    reason: bundleItem.Reject_Reason__c,
+                    name: bundleItem.OwnerName__c,
+                });
+            });
+            res.json(prettyBundleItems);
+        }
+    });
+};
+
+let getBundleDetails = (req, res) => {
+    let bundleId = req.params.bundleId;
+    let q = "SELECT Id, Merchandise__r.Name, Merchandise__r.Title__c, Merchandise__r.Price__c, Merchandise__r.Category__c, Merchandise__r.Picture_URL__c, Qty__c " +
+        "FROM Bundle_Item__c " +
+        "WHERE Bundle__c = '" + bundleId + "'";
+    org.query({ query: q }, (err, resp) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            let bundleItems = resp.records;
+            let prettyBundleItems = [];
+            bundleItems.forEach(bundleItem => {
+                prettyBundleItems.push({
+                    productName: bundleItem.get("Merchandise__r").Name,
+                    productTitle: bundleItem.get("Merchandise__r").Title__c,
+                    price: bundleItem.get("Merchandise__r").Price__c,
+                    pictureURL: bundleItem.get("Merchandise__r").Picture_URL__c,
+                    bundleId: bundleItem.get("Id"),
+                    productId: bundleItem.get("Merchandise__r"),
+                    qty: bundleItem.get("Qty__c")
                 });
             });
             res.json(prettyBundleItems);
@@ -104,7 +157,9 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/www'));
 app.use('/swagger', express.static(__dirname + '/swagger'));
 app.get('/bundles', getBundles);
+app.get('/notification', getNotifications);
 app.get('/bundles/:bundleId', getBundleDetails);
+app.get('/notification/:notificationId', getNotificationDetails);
 app.post('/approvals/:bundleId', orderBundle);
 
 let bayeux = new faye.NodeAdapter({ mount: '/faye', timeout: 45 });
