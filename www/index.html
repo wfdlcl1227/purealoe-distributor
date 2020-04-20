@@ -1,14 +1,7 @@
+<body>
+<div class="container" id="content"></div>
+
 <script src="/socket.io/socket.io.js"></script>
-<script>
-var socket = io.connect();
-socket.on('news', function (data) {
-	console.log(data);
-	socket.emit('myevent', { my: 'data' });
-});
-
-
-
-socket.on('myevent2', function (data) {
-	console.log(data);
-});
-</script>
+<script src="app.js"></script>
+</body>	
+	
