@@ -145,19 +145,7 @@ org.authenticate({ username: SF_USER_NAME, password: SF_USER_PASSWORD }, err => 
         subscribeToPlatformEvents();
         // For this demo, we use the id of the first account as the distributor id.
         // Make sure there us at least one account in your Salesforce org.
-        let q = "SELECT Id FROM Account LIMIT 1";
-        org.query({ query: q }, (err, resp) => {
-            if (err) {
-                console.log(err);
-            } else {
-                if (resp.records && resp.records.length === 1) {
-                    accountId = resp.records[0].get('Id');
-                    console.log(`Account Id: ${accountId}`);
-                } else {
-                    console.log('WARNING: You need to create an account in your org');
-                }
-            }
-        });
+
 
     }
 });
