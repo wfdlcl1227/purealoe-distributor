@@ -13,16 +13,12 @@ function renderBundle(bundle, isAnimated) {
     return `
         <div class="col-sm-12">
             <div class="panel panel-primary ${isAnimated?"animateIn":""}">
-                <div class="panel-heading">Bundle ID: ${bundle.bundleName}</div>
                 <div class="panel-body">
                     <div class="col-md-12 col-lg-7">
                         <table>
                             <tr>
-                                <td class="panel-table-label">Description:</td><td>${bundle.bundleDescription}</td>
+                                <td class="panel-table-label">Message:</td><td>${bundle.bundleDescription}</td>
                             </tr>
-                            <tr>
-                            <td class="panel-table-label">Items:</td><td>${bundle.qty}</td>
-                        </tr>
                     </table>
                     </div>   
                     <div class="col-md-12 col-lg-5">
@@ -32,7 +28,7 @@ function renderBundle(bundle, isAnimated) {
                         </button>
                         <button class="btn btn-info" onclick="orderBundle('${bundle.bundleId}')" style="margin-bottom: 4px;">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            Order Bundle
+                            Dismiss
                         </button>
                     </div>
                     <div id="details-${bundle.bundleId}" class="col-md-12"></div>
@@ -54,8 +50,8 @@ function renderBundleDetails(bundle, items) {
         html = html + `
             <tr>
                 <td>${item.Status}</td>
-                <td>$${item.Reject_Reason__c}</td>
-                <td>${item.OwnerName__c}</td>
+                <td>$${item.Reason}</td>
+                <td>${item.name}</td>
             </tr>`
     });
     html = html + "</table>"    
