@@ -57,7 +57,7 @@ let getNotifications = (req, res) => {
 };
 
 let getNotificationDetails = (req, res) => {
-    let bundleId = req.params.bundleId;
+    //let bundleId = req.params.bundleId;
     let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
         "FROM Case " +
         //"WHERE Id = '" + bundleId + "'";
