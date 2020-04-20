@@ -149,4 +149,4 @@ function orderBundle(bundleId) {
     xhr.send();
 }
 
-//getBundleList();
+getBundleList();
