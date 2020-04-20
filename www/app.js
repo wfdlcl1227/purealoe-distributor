@@ -49,8 +49,8 @@ function renderBundleDetails(bundle, items) {
     items.forEach(function(item) {
         html = html + `
             <tr>
-                <td>${item.Status}</td>
-                <td>${item.Reason}</td>
+                <td>${item.status}</td>
+                <td>${item.reason}</td>
                 <td>${item.name}</td>
             </tr>`
     });
