@@ -17,7 +17,7 @@ io.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' }); 
     
      socket.on('myevent', function (data) {
-        console.log('my data');
+        socket.emit('myevent2', { hello: 'world2' }); 
       });    
     
     
