@@ -11,7 +11,7 @@ let PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Express server listening on ${PORT}`));
 
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html');
+    res.sendfile(__dirname + '/www/index.html');
 });
 
 io.on('connection', function (socket) {
