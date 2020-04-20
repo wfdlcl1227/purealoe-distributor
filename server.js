@@ -56,7 +56,30 @@ let getNotifications = (req, res) => {
     });
 };
 
-
+let getNotificationDetails = (req, res) => {
+    let bundleId = req.params.bundleId;
+    let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
+        "FROM Case " +
+        //"WHERE Id = '" + bundleId + "'";
+        "WHERE Id = '" + "5002x000002Y8qa" + "'";
+    org.query({ query: q }, (err, resp) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            let bundleItems = resp.records;
+            let prettyBundleItems = [];
+            bundleItems.forEach(bundleItem => {
+                prettyBundleItems.push({
+                    status: bundleItem.Status,
+                    reason: bundleItem.Reject_Reason__c,
+                    name: bundleItem.OwnerName__c,
+                });
+            });
+            res.json(prettyBundleItems);
+        }
+    });
+};
 
 let getBundleDetails = (req, res) => {
     let bundleId = req.params.bundleId;
@@ -136,6 +159,7 @@ app.use('/swagger', express.static(__dirname + '/swagger'));
 app.get('/bundles', getBundles);
 app.get('/notification', getNotifications);
 app.get('/bundles/:bundleId', getBundleDetails);
+app.get('/notification/:notificationId', getNotificationDetails);
 app.post('/approvals/:bundleId', orderBundle);
 
 let bayeux = new faye.NodeAdapter({ mount: '/faye', timeout: 45 });
