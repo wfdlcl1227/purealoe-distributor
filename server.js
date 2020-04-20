@@ -15,8 +15,12 @@ app.use('/', express.static(__dirname + '/www'));
 
 io.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' }); 
+    
+     socket.on('myevent', function (data) {
+        console.log('my data');
+      });    
+    
+    
 });
 
-io.on('myevent', function (data) {
-  console.log(data);
-});
+
