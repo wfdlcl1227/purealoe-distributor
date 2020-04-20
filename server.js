@@ -32,6 +32,32 @@ let getBundles = (req, res) => {
 
 };
 
+
+let getNotifications = (req, res) => {
+    debugger;
+    let q = "SELECT Id, Name, Description__c, Qty__c FROM Bundle__c WHERE Status__c='Submitted to Distributors'";
+    org.query({ query: q }, (err, resp) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            let notifications = resp.records;
+            let prettyBundles = [];
+            notifications.forEach(bundle => {
+                prettyBundles.push({
+                    bundleId: bundle.get("Id"),
+                    bundleName: bundle.get("Name"),
+                    bundleDescription: bundle.get("Description__c"),
+                    qty: bundle.get("Qty__c")
+                });
+            });
+            res.json(prettyBundles);
+        }
+    });
+};
+
+
+
 let getBundleDetails = (req, res) => {
     let bundleId = req.params.bundleId;
     let q = "SELECT Id, Merchandise__r.Name, Merchandise__r.Title__c, Merchandise__r.Price__c, Merchandise__r.Category__c, Merchandise__r.Picture_URL__c, Qty__c " +
@@ -108,6 +134,7 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/www'));
 app.use('/swagger', express.static(__dirname + '/swagger'));
 app.get('/bundles', getBundles);
+app.get('/notification', getNotifications);
 app.get('/bundles/:bundleId', getBundleDetails);
 app.post('/approvals/:bundleId', orderBundle);
 
