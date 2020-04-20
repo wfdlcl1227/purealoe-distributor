@@ -32,55 +32,6 @@ let getBundles = (req, res) => {
 
 };
 
-
-let getNotifications = (req, res) => {
-    debugger;
-    let q = "SELECT Id, Name, Description__c, Qty__c FROM Bundle__c WHERE Status__c='Submitted to Distributors'";
-    org.query({ query: q }, (err, resp) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            let notifications = resp.records;
-            let prettyBundles = [];
-            notifications.forEach(bundle => {
-                prettyBundles.push({
-                    bundleId: bundle.get("Id"),
-                    bundleName: bundle.get("Name"),
-                    bundleDescription: bundle.get("Description__c"),
-                    qty: bundle.get("Qty__c")
-                });
-            });
-            res.json(prettyBundles);
-        }
-    });
-};
-
-let getNotificationDetails = (req, res) => {
-    let bundleId = "5002x000002Y8qa";
-    let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
-        "FROM Case " +
-        //"WHERE Id = '" + bundleId + "'";
-        "WHERE Id = '" + bundleId + "'";
-    org.query({ query: q }, (err, resp) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            let bundleItems = resp.records;
-            let prettyBundleItems = [];
-            bundleItems.forEach(bundleItem => {
-                prettyBundleItems.push({
-                    status: bundleItem.get("Status"),
-                    reason: bundleItem.get("Reject_Reason__c"),
-                    name: bundleItem.get("OwnerName__c")
-                });
-            });
-            res.json(prettyBundleItems);
-        }
-    });
-};
-
 let getBundleDetails = (req, res) => {
     let bundleId = "5002x000002Y8qa";
     let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
@@ -154,9 +105,7 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/www'));
 app.use('/swagger', express.static(__dirname + '/swagger'));
 app.get('/bundles', getBundles);
-app.get('/notification', getNotifications);
 app.get('/bundles/:bundleId', getBundleDetails);
-app.get('/notification/:notificationId', getNotificationDetails);
 app.post('/approvals/:bundleId', orderBundle);
 
 let bayeux = new faye.NodeAdapter({ mount: '/faye', timeout: 45 });
@@ -206,7 +155,7 @@ org.authenticate({ username: SF_USER_NAME, password: SF_USER_PASSWORD }, err => 
                 } else {
                     console.log('WARNING: You need to create an account in your org');
                 }
-            } 
+            }
         });
 
     }
