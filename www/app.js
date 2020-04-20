@@ -50,7 +50,7 @@ function renderBundleDetails(bundle, items) {
         html = html + `
             <tr>
                 <td>${item.Status}</td>
-                <td>$${item.Reason}</td>
+                <td>${item.Reason}</td>
                 <td>${item.name}</td>
             </tr>`
     });
