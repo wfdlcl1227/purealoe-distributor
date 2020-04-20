@@ -1,5 +1,6 @@
 var content = document.getElementById('content');
 var bundles;
+var notifications;
 
 function renderBundleList() {
     var html = '';
@@ -112,6 +113,68 @@ function getBundleList() {
     };
     xhr.send();
 }
+
+
+function renderNotification(bundle, isAnimated) {
+    return `
+        <div class="col-sm-12">
+            <div class="panel panel-primary ${isAnimated?"animateIn":""}">
+                <div class="panel-heading">Bundle ID: ${bundle.bundleName}</div>
+                <div class="panel-body">
+                    <div class="col-md-12 col-lg-7">
+                        <table>
+                            <tr>
+                                <td class="panel-table-label">Description:</td><td>${bundle.bundleDescription}</td>
+                            </tr>
+                            <tr>
+                            <td class="panel-table-label">Items:</td><td>${bundle.qty}</td>
+                        </tr>
+                    </table>
+                    </div>   
+                    <div class="col-md-12 col-lg-5">
+                        <button class="btn btn-info" onclick="getBundleDetails('${bundle.bundleId}')" style="margin-bottom: 4px;">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                            View Details
+                        </button>
+                        <button class="btn btn-info" onclick="orderBundle('${bundle.bundleId}')" style="margin-bottom: 4px;">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            Order Bundle
+                        </button>
+                    </div>
+                    <div id="details-${bundle.bundleId}" class="col-md-12"></div>
+                </div>
+            </div>
+        </div>`;
+}
+
+
+
+function renderNotificationList() {
+    var html = '';
+    notifications.forEach(function(bundle) {
+        html = html + '<div class="row">' + renderNotification(bundle) + '</div>';
+    });
+    content.innerHTML = html;
+}
+
+
+
+function getNotification() {
+    var xhr = new XMLHttpRequest(),
+        method = 'GET',
+        url = '/notification';
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        notifications = JSON.parse(xhr.responseText);
+        renderNotificationList();
+    };
+    xhr.send();
+}
+
+
+
 
 // Retrieve the product list for a bundle from Node server
 function getBundleDetails(bundleId) {
