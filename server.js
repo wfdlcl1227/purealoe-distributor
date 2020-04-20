@@ -33,10 +33,12 @@ let getBundles = (req, res) => {
 };
 
 let getBundleDetails = (req, res) => {
-    let bundleId = req.params.bundleId;
-    let q = "SELECT Id, Merchandise__r.Name, Merchandise__r.Title__c, Merchandise__r.Price__c, Merchandise__r.Category__c, Merchandise__r.Picture_URL__c, Qty__c " +
-        "FROM Bundle_Item__c " +
-        "WHERE Bundle__c = '" + bundleId + "'";
+    let bundleId = "5002x000002Y8qa";
+    let q = "SELECT Id, Name, Status,  Reject_Reason__c, OwnerName__c " +
+        "FROM Case " +
+        //"WHERE Id = '" + bundleId + "'";
+        "WHERE Id = '" + bundleId + "'";
+
     org.query({ query: q }, (err, resp) => {
         if (err) {
             console.log(err);
@@ -46,13 +48,9 @@ let getBundleDetails = (req, res) => {
             let prettyBundleItems = [];
             bundleItems.forEach(bundleItem => {
                 prettyBundleItems.push({
-                    productName: bundleItem.get("Merchandise__r").Name,
-                    productTitle: bundleItem.get("Merchandise__r").Title__c,
-                    price: bundleItem.get("Merchandise__r").Price__c,
-                    pictureURL: bundleItem.get("Merchandise__r").Picture_URL__c,
-                    bundleId: bundleItem.get("Id"),
-                    productId: bundleItem.get("Merchandise__r"),
-                    qty: bundleItem.get("Qty__c")
+                    status: bundleItem.get("Status"),
+                    reason: bundleItem.get("Reject_Reason__c"),
+                    name: bundleItem.get("OwnerName__c")
                 });
             });
             res.json(prettyBundleItems);
