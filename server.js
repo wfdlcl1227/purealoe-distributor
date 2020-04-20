@@ -209,7 +209,7 @@ org.authenticate({ username: SF_USER_NAME, password: SF_USER_PASSWORD }, err => 
                 } else {
                     console.log('WARNING: You need to create an account in your org');
                 }
-            }
+            } 
         });
 
     }
