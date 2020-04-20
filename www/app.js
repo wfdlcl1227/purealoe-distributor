@@ -47,6 +47,29 @@ function renderBundleDetails(bundle, items) {
     var html = `
         <table class="table">
             <tr>
+                <th colspan="2">Status</th>
+                <th>Reject Reason</th>
+                <th>Agent Name</th>
+            </tr>`;
+    items.forEach(function(item) {
+        html = html + `
+            <tr>
+                <td>${item.status}</td>
+                <td>$${item.reason}</td>
+                <td>${item.name}</td>
+            </tr>`
+    });
+    html = html + "</table>"    
+    var details = document.getElementById('details-' + bundle.bundleId);
+    details.innerHTML = html;
+}
+
+
+// Render the merchandise list for a bundle
+function renderNotificationDetails(bundle, items) {
+    var html = `
+        <table class="table">
+            <tr>
                 <th colspan="2">Product</th>
                 <th>MSRP</th>
                 <th>Qty</th>
@@ -64,6 +87,7 @@ function renderBundleDetails(bundle, items) {
     var details = document.getElementById('details-' + bundle.bundleId);
     details.innerHTML = html;
 }
+
 
 function deleteBundle(bundleId) {
     for (var i = 0; i < bundles.length; i++) {
@@ -132,13 +156,13 @@ function renderNotification(bundle, isAnimated) {
                     </table>
                     </div>   
                     <div class="col-md-12 col-lg-5">
-                        <button class="btn btn-info" onclick="getBundleDetails('${bundle.bundleId}')" style="margin-bottom: 4px;">
+                        <button class="btn btn-info" onclick="getNotificationDetails('${bundle.bundleId}')" style="margin-bottom: 4px;">
                             <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                             View Details
                         </button>
                         <button class="btn btn-info" onclick="orderBundle('${bundle.bundleId}')" style="margin-bottom: 4px;">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            Order Bundle
+                            Mark Read
                         </button>
                     </div>
                     <div id="details-${bundle.bundleId}" class="col-md-12"></div>
@@ -174,6 +198,32 @@ function getNotification() {
 }
 
 
+// Retrieve the product list for a bundle from Node server
+function getNotificationDetails(bundleId) {
+    var details = document.getElementById('details-' + bundleId);
+    if (details.innerHTML != '') {
+        details.innerHTML = '';
+        return;
+    }
+    var bundle;
+    for (var i=0; i<bundles.length; i++) {
+        if (bundles[i].bundleId === bundleId) {
+            bundle = bundles[i];
+            break;
+        }
+    };
+
+    var xhr = new XMLHttpRequest(),
+        method = 'GET',
+        url = '/notification/' + bundleId;
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        var items = JSON.parse(xhr.responseText);
+        renderNotificationDetails(bundle, items);
+    };
+    xhr.send();
+}
 
 
 // Retrieve the product list for a bundle from Node server
