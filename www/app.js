@@ -138,6 +138,19 @@ function getBundleList() {
     xhr.send();
 }
 
+function getNotificationList() {
+    var xhr = new XMLHttpRequest(),
+        method = 'GET',
+        url = '/notification';
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        bundles = JSON.parse(xhr.responseText);
+        renderNotificationList();
+    };
+    xhr.send();
+}
 
 function renderNotification(bundle, isAnimated) {
     return `
