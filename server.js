@@ -1,161 +1,156 @@
-let nforce = require('nforce');
-let faye = require('faye');
-let express = require('express');
-let cors = require('cors');
-let app = express();
-let server = require('http').Server(app);
-let io = require('socket.io')(server);
-// The account id of the distributor
-let accountId;
+var content = document.getElementById('content');
+var bundles;
 
-let getBundles = (req, res) => {
-    debugger;
-    let q = "SELECT Id, Name, Description__c, Qty__c FROM Bundle__c WHERE Status__c='Submitted to Distributors'";
-    org.query({ query: q }, (err, resp) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            let bundles = resp.records;
-            let prettyBundles = [];
-            bundles.forEach(bundle => {
-                prettyBundles.push({
-                    bundleId: bundle.get("Id"),
-                    bundleName: bundle.get("Name"),
-                    bundleDescription: bundle.get("Description__c"),
-                    qty: bundle.get("Qty__c")
-                });
-            });
-            res.json(prettyBundles);
-        }
+function renderBundleList() {
+    var html = '';
+    bundles.forEach(function(bundle) {
+        html = html + '<div class="row">' + renderBundle(bundle) + '</div>';
     });
-
-};
-
-let getBundleDetails = (req, res) => {
-    let bundleId = "5002x000002Y8qa";
-    let q = "SELECT Id, Status, Reject_Reason__c, OwnerName__c " +
-        "FROM Case " +
-        "WHERE Id = '" + bundleId + "'";
-    org.query({ query: q }, (err, resp) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            let bundleItems = resp.records;
-            let prettyBundleItems = [];
-            bundleItems.forEach(bundleItem => {
-                prettyBundleItems.push({
-                    Status: bundleItem.get("Status"),
-                    Reason: bundleItem.get("Reject_Reason__c"),
-                    name: bundleItem.get("OwnerName__c")
-                });
-            });
-            res.json(prettyBundleItems);
-        }
-    });
-};
-
-// Subscribe to Platform Events
-let subscribeToPlatformEvents = () => {
-    var client = new faye.Client(org.oauth.instance_url + '/cometd/42.0/');
-    client.setHeader('Authorization', 'OAuth ' + org.oauth.access_token);
-    client.subscribe('/event/Bundle_Submitted__e', function (message) {
-        console.log('#### got Bundle_Submitted__e event');
-        // Send message to all connected Socket.io clients
-        io.of('/').emit('bundle_submitted', {
-            bundleId: message.payload.Bundle_Id__c,
-            bundleName: message.payload.Bundle_Name__c,
-            bundleDescription: message.payload.Description__c,
-            qty: message.payload.Qty__c
-        });
-    });
-    client.subscribe('/event/Bundle_Unsubmitted__e', function (message) {
-        console.log('### got Bundle_Unsubmitted__e event');
-        // Send message to all connected Socket.io clients
-        io.of('/').emit('bundle_unsubmitted', {
-            bundleId: message.payload.Bundle_Id__c,
-        });
-    });
-    client.on('transport:down', function () {
-        console.error('# Faye client dowwn');
-    });
-};
-
-let orderBundle = (req, res) => {
-    let bundleId = req.params.bundleId;
-    let event = nforce.createSObject('Bundle_Ordered__e');
-    event.set('Bundle_Id__c', bundleId);
-    if (accountId) {
-        event.set('Account_Id__c', accountId);
-    }
-    org.insert({ sobject: event }, err => {
-        if (err) {
-            console.error(err);
-            res.sendStatus(500);
-        } else {
-            console.log('platform event published ' + bundleId + ' ' + new Date());
-            res.sendStatus(200);
-        }
-    });
+    content.innerHTML = html;
 }
 
-app.use(cors());
-app.use('/', express.static(__dirname + '/www'));
-app.use('/swagger', express.static(__dirname + '/swagger'));
-app.get('/bundles', getBundles);
-app.get('/bundles/:bundleId', getBundleDetails);
-app.post('/approvals/:bundleId', orderBundle);
+function renderBundle(bundle, isAnimated) {
+    return `
+        <div class="col-sm-12">
+            <div class="panel panel-primary ${isAnimated?"animateIn":""}">
+                <div class="panel-heading">Bundle ID: ${bundle.bundleName}</div>
+                <div class="panel-body">
+                    <div class="col-md-12 col-lg-7">
+                        <table>
+                            <tr>
+                                <td class="panel-table-label">Description:</td><td>${bundle.bundleDescription}</td>
+                            </tr>
+                            <tr>
+                            <td class="panel-table-label">Items:</td><td>${bundle.qty}</td>
+                        </tr>
+                    </table>
+                    </div>   
+                    <div class="col-md-12 col-lg-5">
+                        <button class="btn btn-info" onclick="getBundleDetails('${bundle.bundleId}')" style="margin-bottom: 4px;">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                            View Details
+                        </button>
+                        <button class="btn btn-info" onclick="orderBundle('${bundle.bundleId}')" style="margin-bottom: 4px;">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            Dismiss
+                        </button>
+                    </div>
+                    <div id="details-${bundle.bundleId}" class="col-md-12"></div>
+                </div>
+            </div>
+        </div>`;
+}
 
-let bayeux = new faye.NodeAdapter({ mount: '/faye', timeout: 45 });
-bayeux.attach(server);
-bayeux.on('disconnect', function (clientId) {
-    console.log('Bayeux server disconnect');
-});
+// Render the merchandise list for a bundle
+function renderBundleDetails(bundle, items) {
+    var html = `
+        <table class="table">
+            <tr>
+                <th>Status</th>
+                <th>Reason</th>
+                <th>Agent Name</th>
+            </tr>`;
+    items.forEach(function(item) {
+        html = html + `
+            <tr>
+                <td>${item.Status}</td>
+                <td>$${item.Reason}</td>
+                <td>${item.name}</td>
+            </tr>`
+    });
+    html = html + "</table>"    
+    var details = document.getElementById('details-' + bundle.bundleId);
+    details.innerHTML = html;
+}
 
-let PORT = process.env.PORT || 5000;
+function deleteBundle(bundleId) {
+    for (var i = 0; i < bundles.length; i++) {
+        if (bundles[i].bundleId === bundleId) {
+            bundles.splice(i, 1);
+            break;
+        }
+    }
+}
 
-server.listen(PORT, () => console.log(`Express server listening on ${PORT}`));
+var socket = io.connect();
 
-// Connect to Salesforce
-let SF_CLIENT_ID = process.env.SF_CLIENT_ID;
-let SF_CLIENT_SECRET = process.env.SF_CLIENT_SECRET;
-let SF_USER_NAME = process.env.SF_USER_NAME;
-let SF_USER_PASSWORD = process.env.SF_USER_PASSWORD;
-let SF_ENVIRONMENT = process.env.SF_ENVIRONMENT || 'sandbox'; // default to sandbox if env variable not set
-
-let org = nforce.createConnection({
-    clientId: SF_CLIENT_ID,
-    clientSecret: SF_CLIENT_SECRET,
-    environment: SF_ENVIRONMENT,
-    redirectUri: 'http://localhost:3000/oauth/_callback',
-    mode: 'single',
-    autoRefresh: true
-});
-
-org.authenticate({ username: SF_USER_NAME, password: SF_USER_PASSWORD }, err => {
-    if (err) {
-        console.error("Salesforce authentication error");
-        console.error(err);
-    } else {
-        console.log("Salesforce authentication successful");
-        console.log(org.oauth.instance_url);
-        subscribeToPlatformEvents();
-        // For this demo, we use the id of the first account as the distributor id.
-        // Make sure there us at least one account in your Salesforce org.
-        let q = "SELECT Id FROM Account LIMIT 1";
-        org.query({ query: q }, (err, resp) => {
-            if (err) {
-                console.log(err);
-            } else {
-                if (resp.records && resp.records.length === 1) {
-                    accountId = resp.records[0].get('Id');
-                    console.log(`Account Id: ${accountId}`);
-                } else {
-                    console.log('WARNING: You need to create an account in your org');
-                }
-            }
-        });
-
+socket.on('bundle_submitted', function (newBundle) {
+    // if the bundle is alresdy in the list: do nothing
+    var exists = false;
+    bundles.forEach((bundle) => {
+        if (bundle.bundleId == newBundle.bundleId) {
+            exists = true;
+        }
+    });
+    // if the bundle is not in the list: add it
+    if (!exists) {
+        bundles.push(newBundle);
+        var el = document.createElement("div");
+        el.className = "row";
+        el.innerHTML = renderBundle(newBundle, true);
+        content.insertBefore(el, content.firstChild);
     }
 });
+
+socket.on('bundle_unsubmitted', function (data) {
+    deleteBundle(data.bundleId);
+    renderBundleList();
+});
+
+// Retrieve the existing list of bundles from Node server
+function getBundleList() {
+    var xhr = new XMLHttpRequest(),
+        method = 'GET',
+        url = '/bundles';
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        bundles = JSON.parse(xhr.responseText);
+        renderBundleList();
+    };
+    xhr.send();
+}
+
+// Retrieve the product list for a bundle from Node server
+function getBundleDetails(bundleId) {
+    var details = document.getElementById('details-' + bundleId);
+    if (details.innerHTML != '') {
+        details.innerHTML = '';
+        return;
+    }
+    var bundle;
+    for (var i=0; i<bundles.length; i++) {
+        if (bundles[i].bundleId === bundleId) {
+            bundle = bundles[i];
+            break;
+        }
+    };
+
+    var xhr = new XMLHttpRequest(),
+        method = 'GET',
+        url = '/bundles/' + bundleId;
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        var items = JSON.parse(xhr.responseText);
+        renderBundleDetails(bundle, items);
+    };
+    xhr.send();
+}
+
+// Post approve message to Node server
+function orderBundle(bundleId) {
+    var xhr = new XMLHttpRequest(),
+        method = 'POST',
+        url = '/approvals/' + bundleId;
+
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        deleteBundle(bundleId);
+        renderBundleList();
+    };
+    xhr.send();
+}
+
+getBundleList();
