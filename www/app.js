@@ -16,7 +16,6 @@ function renderBundle(bundle, isAnimated) {
                 <div class="panel-body">
                     <div class="panel-heading">Your Case #00027026 has a new update !</div>
                     <div class="col-md-12 col-lg-7">
-                        
                         <table>
                             <tr>
                                 <td class="panel-table-label">Message:</td><td>${bundle.bundleDescription}</td>
