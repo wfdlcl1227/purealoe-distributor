@@ -16,11 +16,24 @@
      } else { 
          window.attachEvent('onload', handlePageLoad, false);
      }
+
+
+
 })(); 
+
+
+        function load()
+        {
+        
+            var membernumber = window.localStorage.getItem("membernumber");
+            alert(membernumber);
+            document.getElementById("membernumber1").value = ;
+        }
+
 </script>
 </head>
 
-<body>
+<body onload="load()">
 <h1>Pre-chat Form</h1> 
 <form method='post' id='prechatForm'> 
 
@@ -28,7 +41,7 @@
            record’s  Email field based on the 
            value of the liveagent.prechat:Email field 
        -->
-    <input type='text' name='liveagent.prechat:membernumber' id="membernumber"/><br /> 
+    <input type='text' name='liveagent.prechat:membernumber' id="membernumber1" /><br /> 
 
 
     <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
