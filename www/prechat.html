@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html>
+<head>
+<!-- This script takes the endpoint URL parameter passed from the 
+     deployment page and makes it the action for the form.
+     You can see the endPoint parameter in the Pre-Chat form window's URL.
+-->
+<script>
+(function() { 
+     function handlePageLoad() {
+       var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+       document.getElementById('prechatForm').setAttribute('action',
+       decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+     } if (window.addEventListener) {
+         window.addEventListener('load', handlePageLoad, false);
+     } else { 
+         window.attachEvent('onload', handlePageLoad, false);
+     }
+})(); 
+</script>
+</head>
+
+<body>
+<h1>Pre-chat Form</h1> 
+<form method='post' id='prechatForm'> 
+
+      <!-- Creates an auto-query for a matching Contact 
+           record’s  Email field based on the 
+           value of the liveagent.prechat:Email field 
+       -->
+    <input type='text' name='liveagent.prechat:membernumber' id="membernumber"/><br /> 
+
+
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Account" value="Member_Number__c,true" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Account" value="Member_Number__c,true" />
+    <input type="hidden" name= "liveagent.prechat.findorcreate.saveToTranscript:Account" value= "AccountId" />
+
+    <input type='submit' value='Request Chat' id='prechat_submit'/>
+
+</form> 
+</body>
+</html>
