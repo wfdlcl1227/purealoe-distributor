@@ -14,9 +14,15 @@
 
        //Read member information from local storage
         var membernumber = window.localStorage.getItem("membernumber");
-        alert(membernumber);
-        document.getElementById("membernumber").value = membernumber;
-
+        console.log(membernumber);
+        
+        if (membernumber !== null || membernumber !== undefined || membernumber !== '') { 
+          //Pre define the member number
+          document.getElementById("membernumber").value = membernumber;
+          //auto sumbmit the form
+          document.getElementById("prechatForm").submit();
+        }
+        
      } if (window.addEventListener) {
          window.addEventListener('load', handlePageLoad, false);
      } else { 
@@ -35,16 +41,16 @@
 <h1>Pre-chat Form</h1> 
 <form method='post' id='prechatForm'> 
 
-      <!-- Creates an auto-query for a matching Contact 
-           record’s  Email field based on the 
-           value of the liveagent.prechat:Email field 
-       -->
+    
     <input type='text' name='liveagent.prechat:membernumber' id="membernumber" /><br /> 
 
-
+    <!--Salesforce pre-chat API:Creates an auto-query for a matching Account with member number field-->
     <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
+    <!--Salesforce pre-chat API:Start find match account-->
     <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Account" value="Member_Number__c,true" />
+    <!--Salesforce pre-chat API: set exact match case-sensitive-->
     <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Account" value="Member_Number__c,true" />
+    <!--Salesforce pre-chat API: associate the found account to the chat transcript -->
     <input type="hidden" name= "liveagent.prechat.findorcreate.saveToTranscript:Account" value= "AccountId" />
 
     <input type='submit' value='Request Chat' id='prechat_submit'/>
