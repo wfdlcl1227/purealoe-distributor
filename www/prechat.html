@@ -11,6 +11,12 @@
        var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
        document.getElementById('prechatForm').setAttribute('action',
        decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+
+       //Read member information from local storage
+        var membernumber = window.localStorage.getItem("membernumber");
+        alert(membernumber);
+        document.getElementById("membernumber").value = membernumber;
+
      } if (window.addEventListener) {
          window.addEventListener('load', handlePageLoad, false);
      } else { 
@@ -22,18 +28,10 @@
 })(); 
 
 
-        function load()
-        {
-        
-            var membernumber = window.localStorage.getItem("membernumber");
-            alert(membernumber);
-            document.getElementById("membernumber1").value = membernumber;
-        }
-
 </script>
 </head>
 
-<body onload="load()">
+<body>
 <h1>Pre-chat Form</h1> 
 <form method='post' id='prechatForm'> 
 
@@ -41,7 +39,7 @@
            record’s  Email field based on the 
            value of the liveagent.prechat:Email field 
        -->
-    <input type='text' name='liveagent.prechat:membernumber' id="membernumber1" /><br /> 
+    <input type='text' name='liveagent.prechat:membernumber' id="membernumber" /><br /> 
 
 
     <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
