@@ -1,83 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="1366,1024, initial-scale=0.749, user-scalable=0, minimum-scale=0.749, maximum-scale=0.749" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="assets/favicon.png">
-    <title>Pure Aloe Distributor</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
-    <link rel="apple-touch-icon" href="assets/icon.png" />
+<!-- This script takes the endpoint URL parameter passed from the 
+     deployment page and makes it the action for the form.
+     You can see the endPoint parameter in the Pre-Chat form window's URL.
+-->
+<script>
+(function() { 
+     function handlePageLoad() {
+       var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+       document.getElementById('prechatForm').setAttribute('action',
+       decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+     } if (window.addEventListener) {
+         window.addEventListener('load', handlePageLoad, false);
+     } else { 
+         window.attachEvent('onload', handlePageLoad, false);
+     }
+})(); 
+</script>
 </head>
 
 <body>
-<div class="status-bar"></div>
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                <img alt="Brand" src="assets/logo.svg" style="height:104px;margin-top:-44px;">
-            </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#" onclick="getBundleList()">Bundles</a></li>
-                <li><a href="#about">Tracking</a></li>
-                <li><a href="#contact">Manage</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Learn <span class="caret"></span></a>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-  ------------------chat here---------------  
-<script type='text/javascript' src='https://service.force.com/embeddedservice/menu/fab.min.js'></script>
-<script type='text/javascript'>
-	var initESW = function(gslbBaseURL) {
-		// Required if you want labels in a language that’s different from your user’s context.
-		//embedded_svc.menu.settings.language = ''; //For example, enter 'en' or 'en-US'
+<h1>Pre-chat Form</h1> 
+<form method='post' id='prechatForm'> 
 
-		// Chat server endpoint URLs.
-		embedded_svc.menu.init(
-			'https://hkairportloyalty--poc.my.salesforce.com',
-			'https://d.la1-c1cs-hnd.salesforceliveagent.com/chat',
-			gslbBaseURL,
-			'00D0p0000008geX',
-			'Chat'
-		);
-	};
+      <!-- Creates an auto-query for a matching Contact 
+           record’s  Email field based on the 
+           value of the liveagent.prechat:Email field 
+       -->
+    <input type='text' name='liveagent.prechat:membernumber' id="membernumber"/><br /> 
 
-	if (!window.embedded_svc || !window.embedded_svc.menu) {
-		var s = document.createElement('script');
-		s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/menu/fab.min.js');
-		s.onload = function() {
-			initESW(null);
-		};
-		document.body.appendChild(s);
-	} else {
-		initESW('https://service.force.com');
-	}
-</script>
-      ------------------chat here---------------  
-</nav>
 
-<div class="container" id="content"></div>
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="app.js"></script>
 
+      <input type='submit' value='Request Chat' id='prechat_submit'/>
+
+</form> 
 </body>
 </html>
