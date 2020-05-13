@@ -1,43 +1,41 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
-<!-- This script takes the endpoint URL parameter passed from the 
-     deployment page and makes it the action for the form.
-     You can see the endPoint parameter in the Pre-Chat form window's URL.
--->
-<script>
-(function() { 
-     function handlePageLoad() {
-       var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
-       document.getElementById('prechatForm').setAttribute('action',
-       decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
-     } if (window.addEventListener) {
-         window.addEventListener('load', handlePageLoad, false);
-     } else { 
-         window.attachEvent('onload', handlePageLoad, false);
-     }
-})(); 
-</script>
+<meta charset="utf-8">
 </head>
-
 <body>
-<h1>Pre-chat Form</h1> 
-<form method='post' id='prechatForm'> 
+    <style>
+        a {
+            display:block;
+            width:200px;
+            height:34px;
+            border:1px solid #CCC;
+            background:cadetblue;
+            color:#FFF;
+            text-align: center;
+            }
+    </style>
+    <script type='text/javascript' src='https://c.la1-c1cs-hnd.salesforceliveagent.com/content/g/js/48.0/deployment.js'></script>
+    <script type='text/javascript'>
+    liveagent.init('https://d.la1-c1cs-hnd.salesforceliveagent.com/chat', '5720p0000004CIE', '00D0p0000008geX');
+    </script>
 
-      <!-- Creates an auto-query for a matching Contact 
-           record’s  Email field based on the 
-           value of the liveagent.prechat:Email field 
-       -->
-    <input type='text' name='liveagent.prechat:membernumber' id="membernumber"/><br /> 
+    <script type='text/javascript'> var Email = liveagent.addCustomDetail('Email','chris.chenglin.li@accenture.com');</script>
+    <script type='text/javascript'> var CaseType = liveagent.addCustomDetail('CaseType','Luxury Reserve');</script>
 
-
-    <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
-    <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Account" value="Member_Number__c,true" />
-    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Account" value="Member_Number__c,true" />
-    <input type="hidden" name= "liveagent.prechat.findorcreate.saveToTranscript:Account" value= "AccountId" />
-
-    <input type='submit' value='Request Chat' id='prechat_submit'/>
-
-</form> 
+    <a id="liveagent_button_online_5730p0000004CKo" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('5730p0000004CKo')">General Inquiry</a><div id="liveagent_button_offline_5730p0000004CKo" style="display: none;"><!-- Offline Chat Content --></div><script type="text/javascript">
+        if (!window._laq) { window._laq = []; }
+        window._laq.push(function(){liveagent.showWhenOnline('5730p0000004CKo', document.getElementById('liveagent_button_online_5730p0000004CKo'));
+        liveagent.showWhenOffline('5730p0000004CKo', document.getElementById('liveagent_button_offline_5730p0000004CKo'));
+        });</script>
+        <br/>
+    <a id="liveagent_button_online_5730p0000004CKt" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('5730p0000004CKt')">Luxury Reserve</a><div id="liveagent_button_offline_5730p0000004CKt" style="display: none;"><!-- Offline Chat Content --></div><script type="text/javascript">
+        if (!window._laq) { window._laq = []; }
+        window._laq.push(function(){liveagent.showWhenOnline('5730p0000004CKt', document.getElementById('liveagent_button_online_5730p0000004CKt'));
+        liveagent.showWhenOffline('5730p0000004CKt', document.getElementById('liveagent_button_offline_5730p0000004CKt'));
+        });</script>
+                    
+        
+        
 </body>
 </html>
