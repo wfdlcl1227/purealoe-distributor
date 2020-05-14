@@ -1,0 +1,60 @@
+<!DOCTYPE>
+<html>
+<head>
+<!-- This script takes the endpoint URL parameter passed from the 
+     deployment page and makes it the action for the form.
+     You can see the endPoint parameter in the Pre-Chat form window's URL.
+-->
+<script>
+(function() { 
+     function handlePageLoad() {
+       var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+       document.getElementById('prechatForm').setAttribute('action',
+       decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+
+       //Read member information from local storage
+        var membernumber = window.localStorage.getItem("membernumber");
+        console.log(membernumber);
+        
+        if (membernumber !== null || membernumber !== undefined || membernumber !== '') { 
+          //Pre define the member number
+          document.getElementById("membernumber").value = membernumber;
+          //auto sumbmit the form
+          document.getElementById("prechatForm").submit();
+        }
+        
+     } if (window.addEventListener) {
+         window.addEventListener('load', handlePageLoad, false);
+     } else { 
+         window.attachEvent('onload', handlePageLoad, false);
+     }
+
+
+
+})(); 
+
+
+</script>
+</head>
+
+<body>
+<h1>Pre-chat Form</h1> 
+<form method='post' id='prechatForm'> 
+
+    
+    <input type='text' name='liveagent.prechat:membernumber' id="membernumber" /><br /> 
+
+    <!--Salesforce pre-chat API:Creates an auto-query for a matching Account with member number field-->
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Account" value="Member_Number__c,membernumber" />
+    <!--Salesforce pre-chat API:Start find match account-->
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Account" value="Member_Number__c,true" />
+    <!--Salesforce pre-chat API: set exact match case-sensitive-->
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Account" value="Member_Number__c,true" />
+    <!--Salesforce pre-chat API: associate the found account to the chat transcript -->
+    <input type="hidden" name= "liveagent.prechat.findorcreate.saveToTranscript:Account" value= "AccountId" />
+
+    <input type='submit' value='Request Chat' id='prechat_submit'/>
+
+</form> 
+</body>
+</html>
