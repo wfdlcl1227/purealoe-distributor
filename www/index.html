@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
+
     <style type='text/css'>
         .embeddedServiceHelpButton .helpButton .uiButton {
             background-color: #005290;
@@ -18,9 +19,14 @@
     <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
     <script type='text/javascript'>
         var initESW = function(gslbBaseURL) {
+
             embedded_svc.settings.displayHelpButton = true; //Or false
-            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+            embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
     
+            embedded_svc.settings.defaultMinimizedText = 'Defaults to Chat with an Expert!!!'; //(Defaults to Chat with an Expert)
+            embedded_svc.settings.disabledMinimizedText = 'Defaults to Agent Offline!!!!'; //(Defaults to Agent Offline)
+    
+            embedded_svc.settings.loadingText = 'Thank you for choosing Luxury Reserve'; //(Defaults to Loading)    
             //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
             //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
     
@@ -39,6 +45,23 @@
             embedded_svc.settings.enabledFeatures = ['LiveAgent'];
             embedded_svc.settings.entryFeature = 'LiveAgent';
     
+
+            embedded_svc.snippetSettingsFile.extraPrechatFormDetails = [{"label":"membernumber","value":"AA-0000001441","displayToAgent":true}];
+
+            
+            embedded_svc.settings.extraPrechatInfo = [{
+                "entityFieldMaps": [{
+                  "doCreate":false,
+                  "doFind":true,
+                  "fieldName":"Member_Number__c",
+                  "isExactMatch":true,
+                  "label":"membernumber"
+                }],
+                "entityName":"Account",
+                "saveToTranscript": "AccountId",
+              }];
+
+
             embedded_svc.init(
                 'https://hkairportloyalty--poc.my.salesforce.com',
                 'https://poc-aahktest.cs74.force.com',
