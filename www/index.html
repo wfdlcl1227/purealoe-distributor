@@ -23,10 +23,10 @@
             embedded_svc.settings.displayHelpButton = true; //Or false
             embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
     
-            embedded_svc.settings.defaultMinimizedText = 'Defaults to Chat with an Expert!!!'; //(Defaults to Chat with an Expert)
-            embedded_svc.settings.disabledMinimizedText = 'Defaults to Agent Offline!!!!'; //(Defaults to Agent Offline)
-    
-            embedded_svc.settings.loadingText = 'Thank you for choosing Luxury Reserve'; //(Defaults to Loading)    
+            embedded_svc.settings.defaultMinimizedText = 'Start Chat'; //(Defaults to Chat with an Expert)
+            embedded_svc.settings.disabledMinimizedText = 'No Agent Online'; //(Defaults to Agent Offline)
+            embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
+            embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)    
             //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
             //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
     
@@ -35,8 +35,7 @@
     
             // Settings for Chat
             embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-                debugger;
-                alert(123)
+
                 var aaa = prechatFormData;
                     return "5730p0000004CLI";
             }
@@ -65,7 +64,6 @@
 
 
             embedded_svc.init(
-
                 'https://hkairportloyalty--poc.my.salesforce.com',
                 'https://poc-aahktest.cs74.force.com',
                 gslbBaseURL,
@@ -74,10 +72,10 @@
                 {
                     baseLiveAgentContentURL: 'https://c.la1-c1cs-hnd.salesforceliveagent.com/content',
                     deploymentId: '5720p0000004CIE',
-                    buttonId: '5730p0000004CL3',
+                    buttonId: '5730p0000004CLI',
                     baseLiveAgentURL: 'https://d.la1-c1cs-hnd.salesforceliveagent.com/chat',
                     eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0p000000009rEAA_17202863138',
-                    isOfflineSupportEnabled: true
+                    isOfflineSupportEnabled: false
                 }
             );
         };
