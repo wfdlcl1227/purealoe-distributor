@@ -15,11 +15,11 @@
             outline: 1px solid #005290;
         }
 
-        .plaintextContent .agent .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI{
+        .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
             margin-left: 0px !important;
         }
         .agentName{
-            display: none !important;
+            display: none;
         }
 
     </style>
@@ -27,6 +27,12 @@
     <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
     <script type='text/javascript'>
         var initESW = function(gslbBaseURL) {
+
+
+            debugger;
+            var disabledButton = getElementsByClassName("uiButton helpButtonDisabled");
+
+
 
             embedded_svc.settings.displayHelpButton = true; //Or false
             embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
@@ -93,12 +99,10 @@
             s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
-                debugger;
             };
             document.body.appendChild(s);
         } else {
             initESW('https://service.force.com');
-            debugger;
         }
     </script>
 
