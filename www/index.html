@@ -14,6 +14,14 @@
         .embeddedServiceHelpButton .helpButton .uiButton:focus {
             outline: 1px solid #005290;
         }
+
+        .plaintextContent .agent .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI{
+            margin-left: 0px !important;
+        }
+        .agentName{
+            display: none;
+        }
+
     </style>
     
     <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
@@ -85,22 +93,14 @@
             s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
+                debugger;
             };
             document.body.appendChild(s);
         } else {
             initESW('https://service.force.com');
+            debugger;
         }
     </script>
-
-
-
-
-
-
-
-
-
-
 
 
 </body>
