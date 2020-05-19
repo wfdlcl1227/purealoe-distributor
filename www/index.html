@@ -20,6 +20,7 @@
     xhr.open("GET", "https://c.la1-c1cs-hnd.salesforceliveagent.com/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5730p0000004CL3]&deployment_id=5720p0000004CIE&org_id=00D0p0000008geX");
     xhr.setRequestHeader("X-LIVEAGENT-API-VERSION", "29");
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "https://chris-event-cometd.herokuapp.com/");
 
     xhr.send(data);
 </script>
