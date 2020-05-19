@@ -3,115 +3,136 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+<script>
+
+    var data = JSON.stringify(false);
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+
+    xhr.open("GET", "https://c.la1-c1cs-hnd.salesforceliveagent.com/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5730p0000004CL3]&deployment_id=5720p0000004CIE&org_id=00D0p0000008geX");
+    xhr.setRequestHeader("X-LIVEAGENT-API-VERSION", "29");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(data);
+</script>
+
 </head>
 <body>
 
-    <style type='text/css'>
-        .embeddedServiceHelpButton .helpButton .uiButton {
-            background-color: #005290;
-            font-family: "Arial", sans-serif;
+<style type='text/css'>
+    .embeddedServiceHelpButton .helpButton .uiButton {
+        background-color: #005290;
+        font-family: "Arial", sans-serif;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #005290;
+    }
+
+    .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
+        margin-left: 0px !important;
+    }
+    .agentName{
+        display: none;
+    }
+
+</style>
+
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+
+
+    window.onload=function(){ 
+        debugger;
+        var disabledButton = document.getElementsByClassName("uiButton helpButtonDisabled");
+    } 
+
+
+
+
+
+    var initESW = function(gslbBaseURL) {
+
+        embedded_svc.settings.displayHelpButton = true; //Or false
+        embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
+
+        embedded_svc.settings.defaultMinimizedText = 'Start Chat'; //(Defaults to Chat with an Expert)
+        embedded_svc.settings.disabledMinimizedText = 'No Agent Online'; //(Defaults to Agent Offline)
+        embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
+        embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)    
+        //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
+        //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+
+        //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+        //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+        // Settings for Chat
+        embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+
+            var aaa = prechatFormData;
+                return "5730p0000004CLI";
         }
-        .embeddedServiceHelpButton .helpButton .uiButton:focus {
-            outline: 1px solid #005290;
-        }
+        //embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+        //embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+        //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
 
-        .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
-            margin-left: 0px !important;
-        }
-        .agentName{
-            display: none;
-        }
-
-    </style>
-    
-    <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-    <script type='text/javascript'>
+        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+        embedded_svc.settings.entryFeature = 'LiveAgent';
 
 
-        window.onload=function(){ 
-            debugger;
-            var disabledButton = document.getElementsByClassName("uiButton helpButtonDisabled");
-        } 
+        embedded_svc.settings.extraPrechatFormDetails = [{"label":"membernumber","value":"AA-0000001441","displayToAgent":true}];
 
-
-
-
-
-        var initESW = function(gslbBaseURL) {
-
-            embedded_svc.settings.displayHelpButton = true; //Or false
-            embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
-    
-            embedded_svc.settings.defaultMinimizedText = 'Start Chat'; //(Defaults to Chat with an Expert)
-            embedded_svc.settings.disabledMinimizedText = 'No Agent Online'; //(Defaults to Agent Offline)
-            embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
-            embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)    
-            //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
-            //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
-    
-            //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
-            //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
-    
-            // Settings for Chat
-            embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-
-                var aaa = prechatFormData;
-                    return "5730p0000004CLI";
-            }
-            //embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
-            //embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
-            //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
-    
-            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-            embedded_svc.settings.entryFeature = 'LiveAgent';
-    
-
-            embedded_svc.settings.extraPrechatFormDetails = [{"label":"membernumber","value":"AA-0000001441","displayToAgent":true}];
-
-            
-            embedded_svc.settings.extraPrechatInfo = [{
-                "entityFieldMaps": [{
-                  "doCreate":false,
-                  "doFind":true,
-                  "fieldName":"Member_Number__c",
-                  "isExactMatch":true,
-                  "label":"membernumber"
-                }],
-                "entityName":"Account",
-                "saveToTranscript": "AccountId",
-              }];
-
-
-            embedded_svc.init(
-                'https://hkairportloyalty--poc.my.salesforce.com',
-                'https://poc-aahktest.cs74.force.com',
-                gslbBaseURL,
-                '00D0p0000008geX',
-                'General_Chat',
-                {
-                    baseLiveAgentContentURL: 'https://c.la1-c1cs-hnd.salesforceliveagent.com/content',
-                    deploymentId: '5720p0000004CIE',
-                    buttonId: '5730p0000004CLI',
-                    baseLiveAgentURL: 'https://d.la1-c1cs-hnd.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0p000000009rEAA_17202863138',
-                    isOfflineSupportEnabled: false
-                }
-            );
-        };
-    
-        if (!window.embedded_svc) {
-            var s = document.createElement('script');
-            s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-            s.onload = function() {
-                initESW(null);
-
-            };
-            document.body.appendChild(s);
-        } else {
-            initESW('https://service.force.com');
-        }
         
-    </script>
+        embedded_svc.settings.extraPrechatInfo = [{
+            "entityFieldMaps": [{
+              "doCreate":false,
+              "doFind":true,
+              "fieldName":"Member_Number__c",
+              "isExactMatch":true,
+              "label":"membernumber"
+            }],
+            "entityName":"Account",
+            "saveToTranscript": "AccountId",
+          }];
+
+
+        embedded_svc.init(
+            'https://hkairportloyalty--poc.my.salesforce.com',
+            'https://poc-aahktest.cs74.force.com',
+            gslbBaseURL,
+            '00D0p0000008geX',
+            'General_Chat',
+            {
+                baseLiveAgentContentURL: 'https://c.la1-c1cs-hnd.salesforceliveagent.com/content',
+                deploymentId: '5720p0000004CIE',
+                buttonId: '5730p0000004CLI',
+                baseLiveAgentURL: 'https://d.la1-c1cs-hnd.salesforceliveagent.com/chat',
+                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0p000000009rEAA_17202863138',
+                isOfflineSupportEnabled: false
+            }
+        );
+    };
+
+    if (!window.embedded_svc) {
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+        s.onload = function() {
+            initESW(null);
+
+        };
+        document.body.appendChild(s);
+    } else {
+        initESW('https://service.force.com');
+    }
+    
+</script>
 
 
 </body>
