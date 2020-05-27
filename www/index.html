@@ -4,27 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 
-<script>
-
-    var data = JSON.stringify(false);
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        console.log(this.responseText);
-      }
-    });
-
-    xhr.open("GET", "https://c.la1-c1cs-hnd.salesforceliveagent.com/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5730p0000004CL3]&deployment_id=5720p0000004CIE&org_id=00D0p0000008geX");
-    xhr.setRequestHeader("X-LIVEAGENT-API-VERSION", "29");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "https://chris-event-cometd.herokuapp.com/");
-
-    xhr.send(data);
-</script>
-
 </head>
 <body>
 
@@ -48,18 +27,18 @@
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
-debugger;
+    /*
     var query = window.location.search.substring(1);
     var btnType = query.split("&")[0].split("=")[1];
-    var chatType;
+    var chatType = Luxury Reserve;
     var btnId;
     if(btnType == "lux"){
         chatType="Luxury Reserve";
         btnId = "5730p0000004CLI"
     }else{
-        chatType="General Inquiry";
+        chatType="General Enquiry";
         btnId = "5730p0000004CL3"
-    }
+    }*/
 
 
     var initESW = function(gslbBaseURL) {
@@ -69,7 +48,7 @@ debugger;
 
         embedded_svc.settings.defaultMinimizedText = 'Start Chat'; //(Defaults to Chat with an Expert)
         embedded_svc.settings.disabledMinimizedText = 'No Agent Online'; //(Defaults to Agent Offline)
-        embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
+        //embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
         embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)    
         //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
         //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
@@ -90,7 +69,7 @@ debugger;
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
 
-
+        /*
         embedded_svc.settings.extraPrechatFormDetails = [
             {
                 "label": "membernumber",
@@ -103,8 +82,14 @@ debugger;
                 "transcriptFields": ["Type__c"],
                 "displayToAgent": true
             }
+        ];*/
+       embedded_svc.settings.extraPrechatFormDetails = [
+            {
+                "label": "membernumber",
+                "value": "AADEV-0000009231",
+                "displayToAgent": true
+            }
         ];
-
 
         embedded_svc.settings.extraPrechatInfo = [{
             "entityFieldMaps": [{
@@ -120,25 +105,25 @@ debugger;
 
 
         embedded_svc.init(
-            'https://hkairportloyalty--poc.my.salesforce.com',
-            'https://poc-aahktest.cs74.force.com',
-            gslbBaseURL,
-            '00D0p0000008geX',
-            'General_Chat',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1cs-hnd.salesforceliveagent.com/content',
-                deploymentId: '5720p0000004CIE',
-                buttonId: btnId,
-                baseLiveAgentURL: 'https://d.la1-c1cs-hnd.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0p000000009rEAA_17202863138',
-                isOfflineSupportEnabled: false
-            }
+                'https://hkairportloyalty--dev1.my.salesforce.com',
+                'https://dev1-member-portal.cs114.force.com/memberportal',
+                gslbBaseURL,
+                '00D1y0000008l0f',
+                'Live_Chat',
+                {
+                        baseLiveAgentContentURL: 'https://c.la2-c1cs-hnd.salesforceliveagent.com/content',
+                        deploymentId: '5721y0000008OMb',
+                        buttonId: '5731y0000008ONy',
+                        baseLiveAgentURL: 'https://d.la2-c1cs-hnd.salesforceliveagent.com/chat',
+                        eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083',
+                        isOfflineSupportEnabled: false
+                }
         );
     };
 
     if (!window.embedded_svc) {
         var s = document.createElement('script');
-        s.setAttribute('src', 'https://hkairportloyalty--poc.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+        s.setAttribute('src', 'https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js');
         s.onload = function() {
             initESW(null);
 
