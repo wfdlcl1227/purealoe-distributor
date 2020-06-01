@@ -68,11 +68,11 @@
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
 
-        
 
 
         window.addEventListener('message', function (msg) {
-        alert('=====>'+msg.data);
+            console.log('Chris==>');  
+            console.log(msg);    
         })
 
 
@@ -163,7 +163,7 @@
         }); */       
         embedded_svc.addEventHandler("featureLoaded",
         function() {
-            embedded_svc.onHelpButtonClick();
+            //embedded_svc.onHelpButtonClick();
         });   
 
 
