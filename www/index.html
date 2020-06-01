@@ -119,11 +119,45 @@
                 }
         );
 
-        debugger;
+        
         embedded_svc.addEventHandler("afterInit",
         function() {
+            alert('afterInit');
             embedded_svc.utils.fireEvent("onHelpButtonClick");
         });
+        embedded_svc.addEventHandler("beforeCreate",
+        function() {
+            alert('beforeCreate');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
+        function() {
+            alert('snapinsCloseSessionWarning');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("ready",
+        function() {
+            alert('ready');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("validateInit",
+        function() {
+            alert('validateInit');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("sessionDataRetrieved",
+        function() {
+            alert('sessionDataRetrieved');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+        embedded_svc.addEventHandler("featureLoaded",
+        function() {
+            alert('featureLoaded');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });   
 
 
 
