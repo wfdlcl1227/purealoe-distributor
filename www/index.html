@@ -119,7 +119,7 @@
                 }
         );
 
-        
+        /*
         embedded_svc.addEventHandler("afterInit",
         function() {
             alert('afterInit');
@@ -152,12 +152,12 @@
         function() {
             alert('sessionDataRetrieved');
             embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });        
+        }); */       
         embedded_svc.addEventHandler("featureLoaded",
         function() {
             alert('featureLoaded');
             debugger;
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
+            embedded_svc.onHelpButtonClick();
         });   
 
 
