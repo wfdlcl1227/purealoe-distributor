@@ -26,7 +26,7 @@
 </style>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-<script type='text/javascript'>
+<script type='text/javascript' >
     /*
     var query = window.location.search.substring(1);
     var btnType = query.split("&")[0].split("=")[1];
@@ -120,13 +120,14 @@
         );
 
 
-        embedded_svc.utils.addEventHandler("afterInit",
-        function() {
+
+        window.onload = function() {
             debugger;
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });
-
-
+            embedded_svc.utils.addEventHandler("afterInit",
+            function() {
+                embedded_svc.utils.fireEvent("onHelpButtonClick");
+            });
+        };
 
 
     };
