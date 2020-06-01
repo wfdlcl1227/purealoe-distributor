@@ -119,15 +119,13 @@
                 }
         );
 
+        debugger;
+        embedded_svc.addEventHandler("afterInit",
+        function() {
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
 
 
-        window.onload = function() {
-            debugger;
-            embedded_svc.utils.addEventHandler("afterInit",
-            function() {
-                embedded_svc.utils.fireEvent("onHelpButtonClick");
-            });
-        };
 
 
     };
