@@ -68,6 +68,14 @@
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
 
+        
+
+
+        window.addEventListener('message', function (msg) {
+        alert('=====>'+msg.data);
+        })
+
+
         /*
         embedded_svc.settings.extraPrechatFormDetails = [
             {
@@ -155,8 +163,6 @@
         }); */       
         embedded_svc.addEventHandler("featureLoaded",
         function() {
-            alert('featureLoaded');
-            debugger;
             embedded_svc.onHelpButtonClick();
         });   
 
