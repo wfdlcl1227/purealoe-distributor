@@ -58,7 +58,6 @@
 
         // Settings for Chat
         //embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-
             //var aaa = prechatFormData;
             //    return "5730p0000004CLI";
         //}
@@ -119,6 +118,17 @@
                         isOfflineSupportEnabled: false
                 }
         );
+
+
+        embedded_svc.utils.addEventHandler("afterInit",
+        function() {
+            debugger;
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+
+
+
+
     };
 
     if (!window.embedded_svc) {
