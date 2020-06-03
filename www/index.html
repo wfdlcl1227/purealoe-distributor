@@ -48,7 +48,7 @@
 
         embedded_svc.settings.displayHelpButton = true; //Or false
 
-
+        embedded_svc.settings.language = settings.language;
         switch (embedded_svc.settings.language) {
         case "zh_CN":
             embedded_svc.settings.defaultMinimizedText = '开始聊天';
@@ -96,7 +96,7 @@
                 "displayToAgent": true
             }
         ];*/
-
+        embedded_svc.settings.extraPrechatFormDetails = settings.extraPrechatFormDetails;
         embedded_svc.settings.extraPrechatInfo = [{
             "entityFieldMaps": [{
               "doCreate":false,
