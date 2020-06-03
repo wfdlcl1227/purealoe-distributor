@@ -41,17 +41,42 @@
     }*/
 
 
+    var settings = {buttonId:"",
+                    buttonType:"",
+                    Language:"zh_CN",
+                    orgId:"00D1y0000008l0f",
+                    deploymentId:"5721y0000008OMb",
+                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com",
+                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal",
+                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat",
+                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content",
+                    eswLiveAgentDevName:"EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083",
+                    extraPrechatFormDetails:[]
+                    }
+
+
     var initESW = function(gslbBaseURL) {
 
         embedded_svc.settings.displayHelpButton = true; //Or false
-        embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
+        embedded_svc.settings.language = getLanguage(); //For example, enter 'en' or 'en-US'
 
-        embedded_svc.settings.defaultMinimizedText = 'Start Chat'; //(Defaults to Chat with an Expert)
-        embedded_svc.settings.disabledMinimizedText = 'No Agent Online'; //(Defaults to Agent Offline)
-        //embedded_svc.settings.avatarImgURL  = 'https://chris-event-cometd.herokuapp.com/white.PNG'; //(Defaults to Agent Offline)
-        embedded_svc.settings.loadingText = 'Loading...'; //(Defaults to Loading)    
-        //embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
-        //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+
+        switch (embedded_svc.settings.language) {
+        case "zh_CN":
+            embedded_svc.settings.defaultMinimizedText = '开始聊天';
+            embedded_svc.settings.disabledMinimizedText = '对话不可用';
+            embedded_svc.settings.loadingText = '加载中...';
+            break;
+        case "zh_HK":
+            embedded_svc.settings.defaultMinimizedText = '開始聊天';
+            embedded_svc.settings.disabledMinimizedText = '對話不可用';
+            embedded_svc.settings.loadingText = '加載中...';
+            break;
+        default:
+            embedded_svc.settings.defaultMinimizedText = 'Start Chat';
+            embedded_svc.settings.disabledMinimizedText = 'Chat Disabled';
+            embedded_svc.settings.loadingText = 'Loading...';
+        }
 
         //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
         //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
@@ -69,13 +94,6 @@
         embedded_svc.settings.entryFeature = 'LiveAgent';
 
 
-
-        window.addEventListener('message', function (msg) {
-            console.log('Chris==>');  
-            console.log(msg);    
-        })
-
-
         /*
         embedded_svc.settings.extraPrechatFormDetails = [
             {
@@ -91,11 +109,7 @@
             }
         ];*/
        embedded_svc.settings.extraPrechatFormDetails = [
-            {
-                "label": "membernumber",
-                "value": "AADEV-0000009231",
-                "displayToAgent": true
-            }
+
         ];
 
         embedded_svc.settings.extraPrechatInfo = [{
@@ -112,19 +126,19 @@
 
 
         embedded_svc.init(
-                'https://hkairportloyalty--dev1.my.salesforce.com',
-                'https://dev1-member-portal.cs114.force.com/memberportal',
-                gslbBaseURL,
-                '00D1y0000008l0f',
-                'Live_Chat',
-                {
-                        baseLiveAgentContentURL: 'https://c.la2-c1cs-hnd.salesforceliveagent.com/content',
-                        deploymentId: '5721y0000008OMb',
-                        buttonId: '5731y0000008ONy',
-                        baseLiveAgentURL: 'https://d.la2-c1cs-hnd.salesforceliveagent.com/chat',
-                        eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083',
-                        isOfflineSupportEnabled: false
-                }
+            settings.myDomainURL,
+            settings.communityURL,
+            gslbBaseURL,
+            settings.orgId,
+            'Live_Chat',
+            {
+                baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
+                deploymentId: settings.deploymentId,
+                buttonId: settings.buttonId,
+                baseLiveAgentURL: settings.baseLiveAgentURL,
+                eswLiveAgentDevName: baseLiveAgentURL.eswLiveAgentDevName,
+                isOfflineSupportEnabled: false
+            }
         );
 
         /*
@@ -171,20 +185,46 @@
 
     };
 
-    if (!window.embedded_svc) {
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-        s.onload = function() {
-            initESW(null);
 
-        };
-        document.body.appendChild(s);
-    } else {
-        initESW('https://service.force.com');
+
+    var StartChat = function() {
+        debugger;
+        
+        var e = window.event.;                
+        if(e.target.innerText == 'Lux'){
+            settings.buttonId = '5731y0000008ONy';
+            settings.buttonType = 'Luxury Reserve';
+        }else{
+            settings.buttonId = '5731y0000008OO3';
+            settings.buttonType = 'General Enquiry'
+        }
+
+        var customDetails = [{"label": "Member Number","value": "AADEV-0000009230","displayToAgent": true},
+                             {"label": "Language","value": settings.Language ,"displayToAgent": true},
+                             {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true}];         
+
+        settings.extraPrechatFormDetails = customDetails;
+
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                initESW(null);
+            };
+            document.body.appendChild(s);
+        } else {
+            initESW('https://service.force.com');
+        }
     }
+
+
+
+
     
 </script>
 
+<button type="button" id="LuxBtn" onclick="StartChat()">Lux</button>
+<button type="button" id="GenBtn" onclick="StartChat()">Gen</button>
 
 </body>
 </html>
