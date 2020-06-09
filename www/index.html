@@ -236,6 +236,7 @@
         if (!window.embedded_svc) {
             var s = document.createElement('script');
             s.setAttribute('src', settings.eswJSURL);
+            s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
                 initESW(null);
             };
