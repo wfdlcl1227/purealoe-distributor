@@ -164,7 +164,10 @@
         function() {
             embedded_svc.onHelpButtonClick();
         });   
-
+        embedded_svc.addEventHandler("onChatEndedByAgent",
+        function() {
+            alert(111);
+        });
     };
 
 
