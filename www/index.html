@@ -109,61 +109,10 @@
             "saveToTranscript": "AccountId",
           }];
 
-
-        embedded_svc.init(
-            settings.myDomainURL,
-            settings.communityURL,
-            gslbBaseURL,
-            settings.orgId,
-            'Live_Chat',
-            {
-                baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
-                deploymentId: settings.deploymentId,
-                buttonId: settings.buttonId,
-                baseLiveAgentURL: settings.baseLiveAgentURL,
-                eswLiveAgentDevName: settings.eswLiveAgentDevName,
-                isOfflineSupportEnabled: false
-            }
-        );
-
-        /*
-        embedded_svc.addEventHandler("afterInit",
-        function() {
-            alert('afterInit');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });
-        embedded_svc.addEventHandler("beforeCreate",
-        function() {
-            alert('beforeCreate');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });
-        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
-        function() {
-            alert('snapinsCloseSessionWarning');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });        
-
-        embedded_svc.addEventHandler("ready",
-        function() {
-            alert('ready');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });        
-
-        embedded_svc.addEventHandler("validateInit",
-        function() {
-            alert('validateInit');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        });        
-
-        embedded_svc.addEventHandler("sessionDataRetrieved",
-        function() {
-            alert('sessionDataRetrieved');
-            embedded_svc.utils.fireEvent("onHelpButtonClick");
-        }); */       
-        embedded_svc.addEventHandler("featureLoaded",
-        function() {
-            embedded_svc.onHelpButtonClick();
-        }); 
+embedded_svc.addEventHandler("featureLoaded",
+function() {
+    embedded_svc.onHelpButtonClick();
+}); 
         
 embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
     console.log("onHelpButtonClick event was fired.");
@@ -235,6 +184,60 @@ embedded_svc.addEventHandler("onInviteAccepted", function(data) {
 embedded_svc.addEventHandler("onInviteRejected", function(data) {
     console.log("onInviteRejected event was fired.");
 });
+
+
+
+        embedded_svc.init(
+            settings.myDomainURL,
+            settings.communityURL,
+            gslbBaseURL,
+            settings.orgId,
+            'Live_Chat',
+            {
+                baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
+                deploymentId: settings.deploymentId,
+                buttonId: settings.buttonId,
+                baseLiveAgentURL: settings.baseLiveAgentURL,
+                eswLiveAgentDevName: settings.eswLiveAgentDevName,
+                isOfflineSupportEnabled: false
+            }
+        );
+
+        /*
+        embedded_svc.addEventHandler("afterInit",
+        function() {
+            alert('afterInit');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+        embedded_svc.addEventHandler("beforeCreate",
+        function() {
+            alert('beforeCreate');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
+        function() {
+            alert('snapinsCloseSessionWarning');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("ready",
+        function() {
+            alert('ready');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("validateInit",
+        function() {
+            alert('validateInit');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+
+        embedded_svc.addEventHandler("sessionDataRetrieved",
+        function() {
+            alert('sessionDataRetrieved');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        }); */       
+
     };
 
 
