@@ -22,10 +22,13 @@
     .agentName{
         display: none !important;
     }
-     .content{
-        display: none !important;
-    }   
 
+    .avatar{
+        display: none !important;
+    }
+    .embeddedServiceLiveAgentQueuePosition.queuePositionWaiting .youAreNextMessage {
+        font-size: 20px !important;
+    }
 </style>
 <!--
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
@@ -159,6 +162,7 @@ embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
 
 embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
     console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+    window.open("www.baidu.com");
 });
 
 embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
