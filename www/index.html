@@ -57,7 +57,6 @@
         embedded_svc.settings.displayHelpButton = false; //Or false
 
         embedded_svc.settings.language = settings.language;
-        /*
         switch (embedded_svc.settings.language) {
         case "zh_CN":
             embedded_svc.settings.defaultMinimizedText = '开始聊天';
@@ -73,7 +72,7 @@
             embedded_svc.settings.defaultMinimizedText = 'Start Chat';
             embedded_svc.settings.disabledMinimizedText = 'Chat Disabled';
             embedded_svc.settings.loadingText = 'Loading...';
-        }*/
+        }
 
         //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
         //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
@@ -120,7 +119,6 @@
 
 embedded_svc.addEventHandler("featureLoaded",
 function() {
-    alert("featureLoaded");
     embedded_svc.onHelpButtonClick();
 }); 
         
@@ -207,7 +205,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             {
                 baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
                 deploymentId: settings.deploymentId,
-                //buttonId: settings.buttonId,
+                buttonId: settings.buttonId,
                 baseLiveAgentURL: settings.baseLiveAgentURL,
                 eswLiveAgentDevName: settings.eswLiveAgentDevName,
                 isOfflineSupportEnabled: false
@@ -274,11 +272,6 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
                 settings.buttonId = "5731y0000008OO3";
             }
         }
-
-        embedded_svc.settings.directToButtonRouting = function() {
-                return settings.buttonId;
-        }
-
     }
 
 
@@ -312,7 +305,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             settings.buttonType = 'General Enquiry'
         }
 
-        //routeButton();
+        routeButton();
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true},
@@ -325,20 +318,26 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
                 initESW(null);
-                routeButton();
             };
             document.body.appendChild(s);
         } else {
-            routeButton();
+            initESW(settings.gslbBaseURL);
         }
     }
 
 
+
+
+    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
 <button type="button" onclick="StartChat()">Gen</button>
 
+<br/>    
+ <iframe src="https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000002w5&surveyName=chat_feedback&UUID=eeb9aa0a-cac2-4507-8f6f-42aaaa2acc5f"></iframe>
+<br/>
+    <iframe src="https://dev1-member-portal.cs114.force.com/memberportal/apex/PostChatFeedback"></iframe>
     
 </body>
 </html>
