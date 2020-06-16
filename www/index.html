@@ -19,6 +19,9 @@
     .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
         margin-left: 0px !important;
     }
+    .agentName{
+        display: none !important;
+    }
     .content{
         display: none !important;
     }
@@ -30,8 +33,10 @@
     }
 </style>
 
-
 <script type='text/javascript' >
+
+
+
 
     var initESW = function(gslbBaseURL) {
 
@@ -39,7 +44,6 @@
         embedded_svc.settings.language = settings.language;
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
-
         embedded_svc.settings.extraPrechatFormDetails = settings.extraPrechatFormDetails;
         embedded_svc.settings.extraPrechatInfo = [{
             "entityFieldMaps": [{
@@ -58,18 +62,18 @@
             embedded_svc.onHelpButtonClick();
         }); 
                 
-
         embedded_svc.addEventHandler("onChatEstablished", function(data) {
             console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+            //call salesforce api to get the survey url
+            //Method： get, URI:/livechatsurvey/{data.liveAgentSessionKey}
         });
-
 
 
         embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
             console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+            //replace the  survey url that generated in onChatEstablished event callback function
             window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
         });
-
 
 
         embedded_svc.init(
@@ -86,6 +90,8 @@
                 isOfflineSupportEnabled: false
             }
         );
+
+     
 
     };
 
@@ -117,7 +123,7 @@
         }
 
         embedded_svc.settings.directToButtonRouting = function() {
-            return settings.buttonId;
+                return settings.buttonId;
         }
 
     }
@@ -127,8 +133,10 @@
 
 
     var StartChat = function() {
-        settings = {buttonId:"5731y0000008OPB",
-                    buttonType:"Luxury Reserve",
+        debugger;
+        
+        settings = {buttonId:"",
+                    buttonType:"",
                     language:"zh_CN",
                     channel:"Member Portal",
                     membernumber:"AADEV-0000009230",
@@ -144,24 +152,23 @@
                     extraPrechatFormDetails:[]
                     }
 
-        var e = window.event;
-        //get which type that clicked               
+        var e = window.event;                
         if(e.target.innerText == 'Lux'){
             settings.buttonType = 'Luxury Reserve';
         }else{
             settings.buttonType = 'General Enquiry'
         }
 
-        //routeButton();
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true},
                              {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true, "transcriptFields": ["Type__c"],},
-                             {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];
+                             {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];         
 
         if (!window.embedded_svc) {
             var s = document.createElement('script');
             s.setAttribute('src', settings.eswJSURL);
+            s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
                 initESW(null);
                 routeButton();
@@ -173,10 +180,16 @@
         }
     }
 
+
+
+
+    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
 <button type="button" onclick="StartChat()">Gen</button>
+
+
     
 </body>
 </html>
