@@ -329,14 +329,18 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             s.onload = function() {
                 initESW(null);
                 routeButton();
-            };
-            document.body.appendChild(s);
+        };
+        document.body.appendChild(s);
         } else {
             routeButton();
+            embedded_svc.onHelpButtonClick();
         }
     }
 
 
+
+
+    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
