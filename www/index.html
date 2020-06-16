@@ -32,18 +32,79 @@
         font-size: 20px !important;
     }
 </style>
+<!--
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+-->
 
 <script type='text/javascript' >
-
+    /*
+    var query = window.location.search.substring(1);
+    var btnType = query.split("&")[0].split("=")[1];
+    var chatType = Luxury Reserve;
+    var btnId;
+    if(btnType == "lux"){
+        chatType="Luxury Reserve";
+        btnId = "5730p0000004CLI"
+    }else{
+        chatType="General Enquiry";
+        btnId = "5730p0000004CL3"
+    }*/
 
 
 
     var initESW = function(gslbBaseURL) {
 
-        embedded_svc.settings.displayHelpButton = false;
+        embedded_svc.settings.displayHelpButton = false; //Or false
+
         embedded_svc.settings.language = settings.language;
+        /*
+        switch (embedded_svc.settings.language) {
+        case "zh_CN":
+            embedded_svc.settings.defaultMinimizedText = '开始聊天';
+            embedded_svc.settings.disabledMinimizedText = '对话不可用';
+            embedded_svc.settings.loadingText = '加载中...';
+            break;
+        case "zh_HK":
+            embedded_svc.settings.defaultMinimizedText = '開始聊天';
+            embedded_svc.settings.disabledMinimizedText = '對話不可用';
+            embedded_svc.settings.loadingText = '加載中...';
+            break;
+        default:
+            embedded_svc.settings.defaultMinimizedText = 'Start Chat';
+            embedded_svc.settings.disabledMinimizedText = 'Chat Disabled';
+            embedded_svc.settings.loadingText = 'Loading...';
+        }*/
+
+        //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+        //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+        // Settings for Chat
+        //embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+            //var aaa = prechatFormData;
+            //    return "5730p0000004CLI";
+        //}
+        //embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+        //embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+        //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
+
+
+        /*
+        embedded_svc.settings.extraPrechatFormDetails = [
+            {
+                "label": "membernumber",
+                "value": "AA-0000001441",
+                "displayToAgent": true
+            },
+            {
+                "label": "Chat Type",
+                "value": chatType,
+                "transcriptFields": ["Type__c"],
+                "displayToAgent": true
+            }
+        ];*/
         embedded_svc.settings.extraPrechatFormDetails = settings.extraPrechatFormDetails;
         embedded_svc.settings.extraPrechatInfo = [{
             "entityFieldMaps": [{
@@ -57,23 +118,84 @@
             "saveToTranscript": "AccountId",
           }];
 
-        embedded_svc.addEventHandler("featureLoaded",
-        function() {
-            embedded_svc.onHelpButtonClick();
-        }); 
-                
-        embedded_svc.addEventHandler("onChatEstablished", function(data) {
-            console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            //call salesforce api to get the survey url
-            //Method： get, URI:/livechatsurvey/{data.liveAgentSessionKey}
-        });
+embedded_svc.addEventHandler("featureLoaded",
+function() {
+    alert("featureLoaded");
+    embedded_svc.onHelpButtonClick();
+}); 
+        
+embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+    console.log("onHelpButtonClick event was fired.");
+});
 
+embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+    console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
 
-        embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
-            console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            //replace the  survey url that generated in onChatEstablished event callback function
-            window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
-        });
+embedded_svc.addEventHandler("onChatEstablished", function(data) {
+    console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChasitorMessage", function(data) {
+    console.log("onChasitorMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentMessage", function(data) {
+    console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatConferenceInitiated", function(data) {
+    console.log("onChatConferenceInitiated event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentJoinedConference", function(data) {
+    console.log("onAgentJoinedConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentLeftConference", function(data) {
+    console.log("onAgentLeftConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatConferenceEnded", function(data) {
+    console.log("onChatConferenceEnded event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
+    console.log("onChatTransferSuccessful event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
+    console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+    window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
+});
+
+embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
+    console.log("onChatEndedByAgent event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onQueueUpdate", function(data) {
+    console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
+});
+
+embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
+    console.log("onIdleTimeoutOccurred event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onConnectionError", function(data) {
+    console.log("onConnectionError event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
+    console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+embedded_svc.addEventHandler("onInviteAccepted", function(data) {
+    console.log("onInviteAccepted event was fired.");
+});
+
+embedded_svc.addEventHandler("onInviteRejected", function(data) {
+    console.log("onInviteRejected event was fired.");
+});
+
 
 
         embedded_svc.init(
@@ -85,13 +207,44 @@
             {
                 baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
                 deploymentId: settings.deploymentId,
+                //buttonId: settings.buttonId,
                 baseLiveAgentURL: settings.baseLiveAgentURL,
                 eswLiveAgentDevName: settings.eswLiveAgentDevName,
                 isOfflineSupportEnabled: false
             }
         );
 
-     
+        /*
+        embedded_svc.addEventHandler("afterInit",
+        function() {
+            alert('afterInit');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+        embedded_svc.addEventHandler("beforeCreate",
+        function() {
+            alert('beforeCreate');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });
+        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
+        function() {
+            alert('snapinsCloseSessionWarning');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+        embedded_svc.addEventHandler("ready",
+        function() {
+            alert('ready');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+        embedded_svc.addEventHandler("validateInit",
+        function() {
+            alert('validateInit');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        });        
+        embedded_svc.addEventHandler("sessionDataRetrieved",
+        function() {
+            alert('sessionDataRetrieved');
+            embedded_svc.utils.fireEvent("onHelpButtonClick");
+        }); */       
 
     };
 
@@ -159,6 +312,7 @@
             settings.buttonType = 'General Enquiry'
         }
 
+        //routeButton();
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true},
@@ -170,26 +324,20 @@
             s.setAttribute('src', settings.eswJSURL);
             s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
-                routeButton();
                 initESW(null);
-                
-        };
-        document.body.appendChild(s);
+                routeButton();
+            };
+            document.body.appendChild(s);
         } else {
             routeButton();
-            embedded_svc.onHelpButtonClick();
         }
     }
 
 
-
-
-    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
 <button type="button" onclick="StartChat()">Gen</button>
-
 
     
 </body>
