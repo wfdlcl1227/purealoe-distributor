@@ -57,6 +57,7 @@
         embedded_svc.settings.displayHelpButton = false; //Or false
 
         embedded_svc.settings.language = settings.language;
+        /*
         switch (embedded_svc.settings.language) {
         case "zh_CN":
             embedded_svc.settings.defaultMinimizedText = '开始聊天';
@@ -72,7 +73,7 @@
             embedded_svc.settings.defaultMinimizedText = 'Start Chat';
             embedded_svc.settings.disabledMinimizedText = 'Chat Disabled';
             embedded_svc.settings.loadingText = 'Loading...';
-        }
+        }*/
 
         //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
         //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
@@ -119,6 +120,7 @@
 
 embedded_svc.addEventHandler("featureLoaded",
 function() {
+    alert("featureLoaded");
     embedded_svc.onHelpButtonClick();
 }); 
         
@@ -205,7 +207,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             {
                 baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
                 deploymentId: settings.deploymentId,
-                buttonId: settings.buttonId,
+                //buttonId: settings.buttonId,
                 baseLiveAgentURL: settings.baseLiveAgentURL,
                 eswLiveAgentDevName: settings.eswLiveAgentDevName,
                 isOfflineSupportEnabled: false
@@ -275,6 +277,11 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
                 settings.buttonId = "5731y0000008OO3";
             }
         }
+
+        embedded_svc.settings.directToButtonRouting = function() {
+                return settings.buttonId;
+        }
+
     }
 
 
@@ -308,7 +315,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             settings.buttonType = 'General Enquiry'
         }
 
-        routeButton();
+        //routeButton();
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true},
@@ -321,17 +328,15 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
             s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
                 initESW(null);
+                routeButton();
             };
             document.body.appendChild(s);
         } else {
-            initESW(settings.gslbBaseURL);
+            routeButton();
         }
     }
 
 
-
-
-    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
