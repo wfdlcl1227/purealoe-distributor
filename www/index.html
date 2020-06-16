@@ -164,7 +164,7 @@ embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
 
 embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
     console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-    window.open("www.baidu.com");
+    window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
 });
 
 embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
