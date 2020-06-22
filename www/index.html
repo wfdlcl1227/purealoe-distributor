@@ -121,7 +121,7 @@
         });
 
         embedded_svc.addEventHandler("onAgentMessage", function(data) {
-            var = document.getElementsByClassName("content")[0];
+            var aaa= document.getElementsByClassName("content")[0];
             console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });
 
@@ -158,12 +158,12 @@
         });
 
         embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
-            var = document.getElementsByClassName("content")[0];
+            var aaa = document.getElementsByClassName("content")[0];
             console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });
 
         embedded_svc.addEventHandler("onIdleTimeoutClear", function(data) {
-            var = document.getElementsByClassName("content")[0];
+            var aaa= document.getElementsByClassName("content")[0];
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });                
 
