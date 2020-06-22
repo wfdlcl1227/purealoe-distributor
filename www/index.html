@@ -19,22 +19,24 @@
     .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
         margin-left: 0px !important;
     }
+    .agentName{
+        display: none !important;
+    }
     .content{
         display: none !important;
     }
     .avatar{
         display: none !important;
     }
-    .avatar{
-        display: none !important;
-    }
-
     .embeddedServiceLiveAgentQueuePosition.queuePositionWaiting .youAreNextMessage {
         font-size: 20px !important;
     }
 </style>
 
 <script type='text/javascript' >
+
+
+
 
     var initESW = function(gslbBaseURL) {
 
@@ -62,7 +64,6 @@
                 
         embedded_svc.addEventHandler("onChatEstablished", function(data) {
             console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            //need to be set
             //call salesforce api to get the survey url
             //Method： get, URI:/livechatsurvey/{data.liveAgentSessionKey}
         });
@@ -70,108 +71,9 @@
 
         embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
             console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            //need to be set
             //replace the  survey url that generated in onChatEstablished event callback function
             window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
         });
-
-
-        //Test use
-        embedded_svc.addEventHandler("afterInit",
-        function() {
-            console.log('afterInit');
-        });
-        embedded_svc.addEventHandler("beforeCreate",
-        function() {
-            console.log('beforeCreate');
-        });
-        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
-        function() {
-            console.log('snapinsCloseSessionWarning');
-        });        
-        embedded_svc.addEventHandler("ready",
-        function() {
-            console.log('ready');
-        });        
-        embedded_svc.addEventHandler("validateInit",
-        function() {
-            console.log('validateInit');
-        });        
-        embedded_svc.addEventHandler("sessionDataRetrieved",
-        function() {
-            console.log('sessionDataRetrieved');
-        });    
-
-
-        embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
-            console.log("onHelpButtonClick event was fired.");
-        });
-
-        embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
-            console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatEstablished", function(data) {
-            console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChasitorMessage", function(data) {
-            console.log("onChasitorMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentMessage", function(data) {
-            console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatConferenceInitiated", function(data) {
-            console.log("onChatConferenceInitiated event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentJoinedConference", function(data) {
-            console.log("onAgentJoinedConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentLeftConference", function(data) {
-            console.log("onAgentLeftConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatConferenceEnded", function(data) {
-            console.log("onChatConferenceEnded event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
-            console.log("onChatTransferSuccessful event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
-            console.log("onChatEndedByAgent event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onQueueUpdate", function(data) {
-            console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
-        });
-
-        embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
-            console.log("onIdleTimeoutOccurred event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onConnectionError", function(data) {
-            console.log("onConnectionError event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
-            console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-        embedded_svc.addEventHandler("onInviteAccepted", function(data) {
-            console.log("onInviteAccepted event was fired.");
-        });
-
-        embedded_svc.addEventHandler("onInviteRejected", function(data) {
-            console.log("onInviteRejected event was fired.");
-        });
-
-        //Test Use
-
 
 
         embedded_svc.init(
@@ -199,24 +101,24 @@
         if(settings.buttonType == "Luxury Reserve"){
             switch (settings.language) {
             case "zh_CN":
-                settings.buttonId = "5731y0000008OPB";//hardcode
+                settings.buttonId = "5731y0000008OPB";
                 break;
             case "zh_HK":
-                settings.buttonId = "5731y0000008OP6";//hardcode
+                settings.buttonId = "5731y0000008OP6";
                 break;
             default:
-                settings.buttonId = "5731y0000008ONy";//hardcode
+                settings.buttonId = "5731y0000008ONy";
             }
         }else{
             switch (settings.language) {
             case "zh_CN":
-                settings.buttonId = "5731y0000008OP1";//hardcode
+                settings.buttonId = "5731y0000008OP1";
                 break;
             case "zh_HK":
-                settings.buttonId = "5731y0000008OOw";//hardcode
+                settings.buttonId = "5731y0000008OOw";
                 break;
             default:
-                settings.buttonId = "5731y0000008OO3";//hardcode
+                settings.buttonId = "5731y0000008OO3";
             }
         }
 
@@ -233,28 +135,28 @@
     var StartChat = function() {
         debugger;
         
-        settings = {
-                    buttonType:"", //will be set by routeButton() function
-                    language:"zh_CN",//need to be set
-                    channel:"Member Portal", //need to be set
-                    membernumber:"AADEV-0000009230", //need to be set
-                    orgId:"00D1y0000008l0f", //hardcode
-                    deploymentId:"5721y0000008OMb", //hardcode
-                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
-                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
-                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
-                    gslbBaseURL:"https://service.force.com", //hardcode
-                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
-                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-                    eswLiveAgentDevName:"EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083", //hardcode
+        settings = {buttonId:"",
+                    buttonType:"",
+                    language:"zh_CN",
+                    channel:"Member Portal",
+                    membernumber:"AADEV-0000009230",
+                    orgId:"00D1y0000008l0f",
+                    deploymentId:"5721y0000008OMb",
+                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com",
+                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal",
+                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js",
+                    gslbBaseURL:"https://service.force.com",
+                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat",
+                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content",
+                    eswLiveAgentDevName:"EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083",
                     extraPrechatFormDetails:[]
                     }
 
         var e = window.event;                
-        if(e.target.innerText == 'Lux'){ //need to be set to check which button clicked
-            settings.buttonType = 'Luxury Reserve';//hardcode
+        if(e.target.innerText == 'Lux'){
+            settings.buttonType = 'Luxury Reserve';
         }else{
-            settings.buttonType = 'General Enquiry'//hardcode
+            settings.buttonType = 'General Enquiry'
         }
 
 
@@ -279,9 +181,6 @@
     }
 
 
-
-
-    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
