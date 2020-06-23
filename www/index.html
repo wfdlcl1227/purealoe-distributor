@@ -177,8 +177,9 @@
             s.setAttribute('src', settings.eswJSURL);
             s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
-                initESW(null);
                 routeButton();
+                initESW(null);
+                
         };
         document.body.appendChild(s);
         } else {
