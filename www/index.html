@@ -180,7 +180,9 @@
         embedded_svc.addEventHandler("onInviteRejected", function(data) {
             console.log("onInviteRejected event was fired.");
         });
-
+        embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
+            console.log("onSettingsCallCompleted event was fired.");
+        });
         //Test Use
 
         embedded_svc.init(
