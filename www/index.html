@@ -35,7 +35,6 @@
 </style>
 
 <script type='text/javascript' >
-
     var initESW = function(gslbBaseURL) {
         embedded_svc.settings.buttonId = settings.buttonId;
         embedded_svc.settings.displayHelpButton = false;
@@ -57,8 +56,7 @@
 
         embedded_svc.addEventHandler("featureLoaded",
         function() {
-            console.log("featureLoaded");
-            //embedded_svc.onHelpButtonClick();
+            embedded_svc.onHelpButtonClick();
         }); 
                 
         embedded_svc.addEventHandler("onChatEstablished", function(data) {
@@ -76,116 +74,6 @@
             window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
         });
 
-
-        //Test use start
-        embedded_svc.addEventHandler("afterInit",
-        function() {
-            console.log('afterInit');
-        });
-        embedded_svc.addEventHandler("beforeCreate",
-        function() {
-            console.log('beforeCreate');
-        });
-        embedded_svc.addEventHandler("snapinsCloseSessionWarning",
-        function() {
-            console.log('snapinsCloseSessionWarning');
-        });        
-        embedded_svc.addEventHandler("ready",
-        function() {
-            console.log('ready');
-        });        
-        embedded_svc.addEventHandler("validateInit",
-        function() {
-            console.log('validateInit');
-        });        
-        embedded_svc.addEventHandler("sessionDataRetrieved",
-        function() {
-            console.log('sessionDataRetrieved');
-        });    
-
-
-        embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
-            console.log("onSettingsCallCompleted event was fired.");
-        });
-        embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
-            console.log("onHelpButtonClick event was fired.");
-        });
-
-        embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
-            console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatEstablished", function(data) {
-            console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChasitorMessage", function(data) {
-            console.log("onChasitorMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentMessage", function(data) {
-            var aaa= document.getElementsByClassName("content")[0];
-            console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatConferenceInitiated", function(data) {
-            console.log("onChatConferenceInitiated event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentJoinedConference", function(data) {
-            console.log("onAgentJoinedConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onAgentLeftConference", function(data) {
-            console.log("onAgentLeftConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatConferenceEnded", function(data) {
-            console.log("onChatConferenceEnded event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
-            console.log("onChatTransferSuccessful event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
-            console.log("onChatEndedByAgent event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onQueueUpdate", function(data) {
-            console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
-        });
-
-        embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
-            console.log("onIdleTimeoutOccurred event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
-            var aaa = document.getElementsByClassName("content")[0];
-            console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onIdleTimeoutClear", function(data) {
-            var aaa= document.getElementsByClassName("content")[0];
-            console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });                
-
-        embedded_svc.addEventHandler("onConnectionError", function(data) {
-            console.log("onConnectionError event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-
-        embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
-            console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-        embedded_svc.addEventHandler("onInviteAccepted", function(data) {
-            console.log("onInviteAccepted event was fired.");
-        });
-
-        embedded_svc.addEventHandler("onInviteRejected", function(data) {
-            console.log("onInviteRejected event was fired.");
-        });
-
-        //Test Use end
 
         embedded_svc.init(
             settings.myDomainURL,
@@ -234,21 +122,26 @@
             }
         }
 
-        embedded_svc.settings.directToButtonRouting = function() {
-                return settings.buttonId;
+        //embedded_svc.settings.directToButtonRouting = function() {
+        //        return settings.buttonId;
+        //}
+
+    }
+
+
+    function checkAgentAvailable(){
+        var agentAvailable = true;
+        //need to do: call live agent API to check agent status with buttonId, need do the proxy by member protal
+        if(agentAvailable){
+            StartChat();
+        }else{
+        //need to do: no agent online then redirect to offline contact us page
         }
 
     }
 
 
-
-
-
     var StartChat = function() {
-        debugger;
-        
-
-
         settings = {
                     buttonType:"", //ne be set by routeButton() function
                     language:"zh_CN",//need to be set
@@ -296,8 +189,8 @@
 
 </script>
 
-<button type="button" onclick="StartChat()">Lux</button>
-<button type="button" onclick="StartChat()">Gen</button>
+<button type="button" onclick="checkAgentAvailable()">Lux</button>
+<button type="button" onclick="checkAgentAvailable()">Gen</button>
 
 
     
