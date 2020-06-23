@@ -6,6 +6,7 @@
 
 </head>
 <body>
+
 <style type='text/css'>
     .embeddedServiceHelpButton .helpButton .uiButton {
         background-color: #005290;
@@ -56,7 +57,7 @@
 
         embedded_svc.addEventHandler("featureLoaded",
         function() {
-            embedded_svc.onHelpButtonClick();
+            //embedded_svc.onHelpButtonClick();
         }); 
                 
         embedded_svc.addEventHandler("onChatEstablished", function(data) {
@@ -75,7 +76,7 @@
         });
 
 
-        //Test use
+        //Test use start
         embedded_svc.addEventHandler("afterInit",
         function() {
             console.log('afterInit');
@@ -102,7 +103,9 @@
         });    
 
 
-
+        embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
+            console.log("onSettingsCallCompleted event was fired.");
+        });
         embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
             console.log("onHelpButtonClick event was fired.");
         });
@@ -180,10 +183,8 @@
         embedded_svc.addEventHandler("onInviteRejected", function(data) {
             console.log("onInviteRejected event was fired.");
         });
-        embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
-            console.log("onSettingsCallCompleted event was fired.");
-        });
-        //Test Use
+
+        //Test Use end
 
         embedded_svc.init(
             settings.myDomainURL,
@@ -244,8 +245,10 @@
     var StartChat = function() {
         debugger;
         
+
+
         settings = {
-                    buttonType:"", //will be set by routeButton() function
+                    buttonType:"", //ne be set by routeButton() function
                     language:"zh_CN",//need to be set
                     channel:"Member Portal", //need to be set
                     membernumber:"AADEV-0000009230", //need to be set
@@ -289,10 +292,6 @@
         }
     }
 
-
-
-
-    
 </script>
 
 <button type="button" onclick="StartChat()">Lux</button>
