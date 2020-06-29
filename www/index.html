@@ -132,6 +132,28 @@
     function checkAgentAvailable(){
         var agentAvailable = true;
         //need to do: call live agent API to check agent status with buttonId, need do the proxy by member protal
+
+        var request = new XMLHttpRequest();
+        request.open('GET', "https://t6f2vhju5f.execute-api.ap-southeast-1.amazonaws.com/dev/proxy/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5731y0000008OO3]&deployment_id=5721y0000008OMb&org_id=00D1y0000008l0f");
+        request.setRequestHeader("Content-type","application/json");
+        request.setRequestHeader("X-LIVEAGENT-API-VERSION","29");
+
+        request.send();
+        request.onload = function(e){
+            console.log("请求成功")
+            console.log(request.status, "请求的URL的相应状态")
+            console.log(request.readyState, "请求的结果，一般都是4")
+            if (request.status === 200) {
+                alert('设置回调事件成功！');
+            }
+            else{
+                alert('设置失败，请重试！');
+            }
+        }
+        request.onerror = function(e){
+           debugger;
+        }
+
         if(agentAvailable){
             StartChat();
         }else{
