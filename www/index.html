@@ -19,9 +19,7 @@
     .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
         margin-left: 0px !important;
     }
-    .content{
-        display: none !important;
-    }
+
     .avatar{
         display: none !important;
     }
@@ -74,6 +72,15 @@
             window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
         });
 
+        embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
+            console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+
+        embedded_svc.addEventHandler("onIdleTimeoutClear", function(data) {
+            console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        
 
         embedded_svc.init(
             settings.myDomainURL,
