@@ -19,8 +19,7 @@
     .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
         margin-left: 0px !important;
     }
-
-    .avatar{
+    .content{
         display: none !important;
     }
     .avatar{
@@ -71,23 +70,20 @@
             //replace the  survey url that generated in onChatEstablished event callback function
             window.open("https://dev1-member-portal.cs114.force.com/memberportal/survey/runtimeApp.app?invitationId=0Ki1y00000004IG&surveyName=chat_feedback&UUID=037fd4a2-befe-4205-a2be-cad6bf807572", "_blank");
         });
-
         embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
             console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });
 
         embedded_svc.addEventHandler("onIdleTimeoutClear", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-        });
-        
-        
+        });   
 
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
             gslbBaseURL,
             settings.orgId,
-            'Live_Chat_Lux_SC',
+            settings.eswLiveAgentDeploymentName,
             {
                 baseLiveAgentContentURL: settings.baseLiveAgentContentURL,
                 deploymentId: settings.deploymentId,
@@ -109,12 +105,18 @@
             switch (settings.language) {
             case "zh_CN":
                 settings.buttonId = "5731y0000008OPB";//hardcode
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CD5EAM_172e067c590"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
                 break;
             case "zh_HK":
                 settings.buttonId = "5731y0000008OP6";//hardcode
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CDAEA2_172e07bdd1a"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_TC";                
                 break;
             default:
                 settings.buttonId = "5731y0000008ONy";//hardcode
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CCqEAM_172556ae083"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_EN";                
             }
         }else{
             switch (settings.language) {
@@ -136,7 +138,37 @@
     }
 
 
-    
+    function checkAgentAvailable(){
+        var agentAvailable = true;
+        //need to do: call live agent API to check agent status with buttonId, need do the proxy by member protal
+        /*
+        var request = new XMLHttpRequest();
+        request.open('GET', "https://t6f2vhju5f.execute-api.ap-southeast-1.amazonaws.com/dev/proxy/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5731y0000008OO3]&deployment_id=5721y0000008OMb&org_id=00D1y0000008l0f");
+        request.setRequestHeader("Content-type","application/json");
+        request.setRequestHeader("X-LIVEAGENT-API-VERSION","29");
+
+        request.send();
+        request.onload = function(e){
+            console.log(request)
+
+            if (request.status === 200) {
+                alert('success');
+            }
+            else{
+                alert('failed');
+            }
+        }
+        request.onerror = function(e){
+           debugger;
+        }
+        */
+        if(agentAvailable){
+            StartChat();
+        }else{
+        //need to do: no agent online then redirect to offline contact us page
+        }
+
+    }
 
 
     var StartChat = function() {
@@ -153,7 +185,6 @@
                     gslbBaseURL:"https://service.force.com", //hardcode
                     baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
                     baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-                    eswLiveAgentDevName:"EmbeddedServiceLiveAgent_Parent04I1y0000004CD5EAM_172e067c590", //hardcode
                     extraPrechatFormDetails:[]
                     }
 
@@ -173,7 +204,7 @@
         if (!window.embedded_svc) {
             var s = document.createElement('script');
             s.setAttribute('src', settings.eswJSURL);
-            //s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
+            s.setAttribute('sandbox', 'allow-top-navigation allow-same-origin allow-forms allow-scripts');
             s.onload = function() {
                 routeButton();
                 initESW(null);
@@ -188,8 +219,8 @@
 
 </script>
 
-<button type="button" onclick="StartChat()">Lux</button>
-<button type="button" onclick="StartChat()">Gen</button>
+<button type="button" onclick="checkAgentAvailable()">Lux</button>
+<button type="button" onclick="checkAgentAvailable()">Gen</button>
 
 
     
