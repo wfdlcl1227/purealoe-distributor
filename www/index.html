@@ -114,13 +114,13 @@
                 break;
             case "zh_HK":
                 settings.buttonId = "573O0000000Cb32";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ5MAM_1730da6f144"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_TC";                
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
                 break;
             default:
                 settings.buttonId = "573O0000000Cb2s";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPzMAM_1730da5c453"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_EN";                
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
             }
         }else{
             switch (settings.language) {
@@ -186,7 +186,7 @@
 
     var StartChat = function() {
         settings = {
-                    language:"zh_CN",//need to be set
+                    //language:"zh_CN",//need to be set
                     channel:"Member Portal", //need to be set
                     membernumber:"AA-0000001486", //need to be set
                     orgId:"00DO00000053jxe", //hardcode
@@ -206,6 +206,9 @@
         }else{
             settings.buttonType = 'General Enquiry'//hardcode
         }
+
+        settings.language = document.getElementById("languageSelect").value;
+
 
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
@@ -230,7 +233,11 @@
     }
 
 </script>
-
+<select id="languageSelect">
+  <option value="en_US">en_US</option>
+  <option value ="zh_CN">zh_CN</option>
+  <option value ="zh_HK">zh_HK</option>
+</select><br/>
 <button type="button" onclick="checkAgentAvailable()">Lux</button>
 <button type="button" onclick="checkAgentAvailable()">Gen</button>
 
