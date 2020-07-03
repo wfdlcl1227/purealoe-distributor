@@ -30,7 +30,7 @@
         font-size: 20px !important;
     }
 </style>
-
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript' >
     var initESW = function(gslbBaseURL) {
         embedded_svc.settings.buttonId = settings.buttonId;
@@ -105,12 +105,12 @@
         if(settings.buttonType == "Luxury Reserve"){
             switch (settings.language) {
             case "zh_CN":
-                //settings.buttonId = "573O0000000Cb2x";//hardcode
-                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-                settings.buttonId = "573O0000000Cb2i";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
+                settings.buttonId = "573O0000000Cb2x";//hardcode
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+                //settings.buttonId = "573O0000000Cb2i";//hardcode
+                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
                 break;
             case "zh_HK":
                 settings.buttonId = "573O0000000Cb32";//hardcode
@@ -125,17 +125,17 @@
         }else{
             switch (settings.language) {
             case "zh_CN":
-                settings.buttonId = "573O0000000Cb2x";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-                //settings.buttonId = "573O0000000Cb2i";//hardcode
-                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+                //settings.buttonId = "573O0000000Cb2x";//hardcode
+                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
+                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
+                settings.buttonId = "573O0000000Cb2i";//hardcode
+                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
                 break;
             case "zh_HK":
                 settings.buttonId = "573O0000000Cb2n";//hardcode
                 settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";                  
+                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
                 break;
             default:
                 settings.buttonId = "573O0000000Cb2d";//hardcode
