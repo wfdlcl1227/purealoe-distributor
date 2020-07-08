@@ -68,7 +68,8 @@
             //need to be set
             //replace the  survey url that generated in onChatEstablished event callback function
             var surveyURL = "https://sit-hkairportrewards.cs5.force.com/hkairportrewards/survey/runtimeApp.app?invitationId=0KiO00000008SOy&surveyName=chat_feedback&UUID=e676e020-34ac-4892-9497-c9f7cb11ef95";
-            surveyURL += "&guestUserLang=" + settings.language;
+            var lan = settings.language.replace("_","-");
+            surveyURL += "&guestUserLang=" + lan;
             window.open(surveyURL, "_blank");
         });
         embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
