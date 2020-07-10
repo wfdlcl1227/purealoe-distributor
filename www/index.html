@@ -82,6 +82,10 @@
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });   
 
+        embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
+            console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });          
+        
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
