@@ -84,6 +84,10 @@
 
         embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+debugger;
+var x = document.getElementsByClassName("text announcement");
+x.innerText = "Test 1234";
+x.style.visibility = "visible";
         });          
         
         embedded_svc.init(
