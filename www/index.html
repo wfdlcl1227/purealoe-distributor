@@ -32,15 +32,6 @@
         display: none !important;
     }
 
-	.embeddedServiceLiveAgentStateChatMessage .uiOutputRichText :after {
-	    content: 'asdasdadas';                 
-	    position: absolute;         
-	    top: 52%;
-	    background: #D8D8D8;       
-	    width: 45%;
-	    height: 1px;
-	}
-
 
 </style>
 <script type='text/javascript' >
@@ -95,10 +86,6 @@
 
         embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-debugger;
-var x = document.getElementsByClassName("text announcement");
-x.innerText = "Test 1234";
-x.style.visibility = "visible";
         });          
         
         embedded_svc.init(
@@ -244,10 +231,11 @@ x.style.visibility = "visible";
                 routeButton();
                 initESW(null);
                 
-        };
-        document.body.appendChild(s);
+        	};
+        	document.body.appendChild(s);
         } else {
             routeButton();
+            embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
                     return settings.buttonId;
             }
