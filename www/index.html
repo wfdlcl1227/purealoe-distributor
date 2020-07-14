@@ -88,13 +88,13 @@
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
             switch (settings.language) {
 	            case "zh_CN":
-			showEndingMessage("xxxxxxxx");
+					showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
 	                break;
 	            case "zh_HK":
-	                showEndingMessage("哈哈哈哈哈");
+	                showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
 	                break;
 	            default:
-	                showEndingMessage("突突突突突");               
+	                showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");               
             }
         });          
                     
@@ -120,12 +120,10 @@
     };
 
     function showEndingMessage(msg){
-    	debugger;
-		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li.wrapper.chatMessage.ended.embeddedServiceLiveAgentStateChatItem.embeddedServiceLiveAgentStateChatMessage");
-		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent").cloneNode(true);
-		newMsgNode.firstChild.firstChild.innerText = msg;
-		msgParentNode.prepend(newMsgNode);
-
+		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1)");
+		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1) > div.chatContent").cloneNode(true);
+		newMsgNode.firstChild.firstChild.innerText = "msg";
+		msgParentNode.append(newMsgNode);
     }
 
     function routeButton(){
