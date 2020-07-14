@@ -86,12 +86,20 @@
 
         embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+            switch (settings.language) {
+	            case "zh_CN":
+					showNotificationMessage("xxxxxxxx");
+	                break;
+	            case "zh_HK":
+	                showNotificationMessage("哈哈哈哈哈");
+	                break;
+	            default:
+	                showNotificationMessage("突突突突突");               
+            }
+
+            
         });          
-        
-        embedded_svc.addEventHandler("onAgentMessage", function(data) {
-            console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            showNotificationMessage("xxxxxxxx");
-        });             
+                    
         
         embedded_svc.init(
             settings.myDomainURL,
@@ -113,13 +121,13 @@
 
     };
 
-    function showNotificationMessage(msg){
+    function showEndingMessage(msg){
     	debugger;
 		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
 		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent").cloneNode(true);
 		newMsgNode.firstChild.firstChild.innerText = msg;
 		msgParentNode.append(newMsgNode);
-		newMsgNode.style.padding = "18px";
+		newMsgNode.style.padding = "0px 18px";
 
     }
 
