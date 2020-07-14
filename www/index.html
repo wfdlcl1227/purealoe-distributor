@@ -88,6 +88,12 @@
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
         });          
         
+        embedded_svc.addEventHandler("onAgentMessage", function(data) {
+            console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+            var aaa = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li.wrapper.chatMessage.agent.embeddedServiceLiveAgentStateChatItem.embeddedServiceLiveAgentStateChatMessage > div.chatContent > div > div");
+            aaa.innerText = "test abcd";
+        });             
+        
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
