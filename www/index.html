@@ -122,7 +122,7 @@
     function showEndingMessage(msg){
 		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1)");
 		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1) > div.chatContent").cloneNode(true);
-		newMsgNode.firstChild.firstChild.innerText = "msg";
+		newMsgNode.firstChild.firstChild.innerText = msg;
 		msgParentNode.append(newMsgNode);
     }
 
