@@ -96,8 +96,6 @@
 	            default:
 	                showEndingMessage("突突突突突");               
             }
-
-            
         });          
                     
         
@@ -123,11 +121,10 @@
 
     function showEndingMessage(msg){
     	debugger;
-		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
+		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li.wrapper.chatMessage.ended.embeddedServiceLiveAgentStateChatItem.embeddedServiceLiveAgentStateChatMessage");
 		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent").cloneNode(true);
 		newMsgNode.firstChild.firstChild.innerText = msg;
-		msgParentNode.append(newMsgNode);
-		newMsgNode.style.padding = "0px 18px";
+		msgParentNode.prepend(newMsgNode);
 
     }
 
