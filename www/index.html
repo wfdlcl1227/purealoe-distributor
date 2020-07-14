@@ -249,12 +249,18 @@
         	};
         	document.body.appendChild(s);
         } else {
+        		embedded_svc.liveAgentAPI.clearSession();
+        	    routeButton();
+                initESW(null);
+
+        	/*
             routeButton();
             embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
                     return settings.buttonId;
             }
             embedded_svc.onHelpButtonClick();
+            */
         }
     }
 
