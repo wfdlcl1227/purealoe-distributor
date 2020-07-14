@@ -114,11 +114,12 @@
     };
 
     function showNotificationMessage(msg){
+    	debugger;
 		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
 		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent");
 		newMsgNode.style.padding = "18px";
 		newMsgNode.firstChild.firstChild = msg;
-		parent.append(child);
+		parent.append(newMsgNode);
 
     }
 
