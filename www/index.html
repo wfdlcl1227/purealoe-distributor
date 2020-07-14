@@ -116,9 +116,8 @@
     function showNotificationMessage(msg){
 		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
 		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent");
-		child.style.padding = "18px";
-		var subChild = child.firstChild.firstChild;
-		subChild.innerText = msg;
+		newMsgNode.style.padding = "18px";
+		newMsgNode.firstChild.firstChild = msg;
 		parent.append(child);
 
     }
