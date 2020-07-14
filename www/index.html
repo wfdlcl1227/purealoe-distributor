@@ -93,6 +93,9 @@
 debugger;
 var parent = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
 var child = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent");
+var subChild = child.firstChild.firstChild;
+subChild.innerText = "testxxxxx";
+parent.append(child);
         });             
         
         embedded_svc.init(
