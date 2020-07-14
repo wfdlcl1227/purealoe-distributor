@@ -90,12 +90,7 @@
         
         embedded_svc.addEventHandler("onAgentMessage", function(data) {
             console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-debugger;
-var parent = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
-var child = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent");
-var subChild = child.firstChild.firstChild;
-subChild.innerText = "testxxxxx";
-parent.append(child);
+            showNotificationMessage("xxxxxxxx");
         });             
         
         embedded_svc.init(
@@ -118,7 +113,15 @@ parent.append(child);
 
     };
 
+    function showNotificationMessage(msg){
+		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul");
+		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li > div.chatContent");
+		child.style.padding = "18px";
+		var subChild = child.firstChild.firstChild;
+		subChild.innerText = msg;
+		parent.append(child);
 
+    }
 
     function routeButton(){
         debugger
