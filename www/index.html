@@ -87,17 +87,19 @@
         embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
             switch (settings.language) {
-	            case "zh_CN":
-					showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
-	                break;
-	            case "zh_HK":
-	                showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
-	                break;
-	            default:
-	                showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");               
+                case "zh_CN":
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
+                    break;
+                case "zh_HK":
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
+                    break;
+                default:
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");               
             }
         });          
-                    
+         embedded_svc.addEventHandler("afterDestroy", function(data) {
+            console.log("afterDestroy event was fired.  liveAgentSessionKey was ");
+        });                      
         
         embedded_svc.init(
             settings.myDomainURL,
@@ -120,10 +122,10 @@
     };
 
     function showEndingMessage(msg){
-		var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1)");
-		var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1) > div.chatContent").cloneNode(true);
-		newMsgNode.firstChild.firstChild.innerText = msg;
-		msgParentNode.append(newMsgNode);
+        var msgParentNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1)");
+        var newMsgNode = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div.messageArea > ul > li:nth-last-child(1) > div.chatContent").cloneNode(true);
+        newMsgNode.firstChild.firstChild.innerText = msg;
+        msgParentNode.append(newMsgNode);
     }
 
     function routeButton(){
@@ -234,7 +236,7 @@
 
 
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
-                             {"label": "language","value": settings.language ,"displayToAgent": true},
+                             {"label": "language","value": settings.language ,"displayToAgent": true, "transcriptFields": ["Preferred_Communication_Language__c"],},
                              {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true, "transcriptFields": ["Type__c"],},
                              {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];         
 
@@ -246,13 +248,13 @@
                 routeButton();
                 initESW(null);
                 
-        	};
-        	document.body.appendChild(s);
+            };
+            document.body.appendChild(s);
         } else {
-        	    //routeButton();
+                //routeButton();
                 initESW('https://service.force.com');
 
-        	/*
+            /*
             routeButton();
             embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
