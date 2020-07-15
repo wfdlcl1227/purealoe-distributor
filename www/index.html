@@ -69,12 +69,7 @@
 
         embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
             console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-            //need to be set
-            //replace the  survey url that generated in onChatEstablished event callback function
-            var surveyURL = "https://sit-hkairportrewards.cs5.force.com/hkairportrewards/survey/runtimeApp.app?invitationId=0KiO00000008SOy&surveyName=chat_feedback&UUID=e676e020-34ac-4892-9497-c9f7cb11ef95";
-            var lan = settings.language.replace("_","-");
-            surveyURL += "&guestUserLang=" + lan;
-            window.open(surveyURL, "_blank");
+
         });
         embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
             console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
@@ -99,6 +94,12 @@
         });          
          embedded_svc.addEventHandler("afterDestroy", function(data) {
             console.log("afterDestroy event was fired.  liveAgentSessionKey was ");
+             //need to be set
+            //replace the  survey url that generated in onChatEstablished event callback function
+            var surveyURL = "https://sit-hkairportrewards.cs5.force.com/hkairportrewards/survey/runtimeApp.app?invitationId=0KiO00000008SOy&surveyName=chat_feedback&UUID=e676e020-34ac-4892-9497-c9f7cb11ef95";
+            var lan = settings.language.replace("_","-");
+            surveyURL += "&guestUserLang=" + lan;
+            window.open(surveyURL, "_blank");            
         });                      
         
         embedded_svc.init(
