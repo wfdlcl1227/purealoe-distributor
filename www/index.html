@@ -130,47 +130,59 @@
     }
 
     function routeButton(){
-        if(settings.buttonType == "Luxury Reserve"){
-            switch (settings.language) {
-            case "zh_CN":
-                settings.buttonId = "573O0000000Cb2x";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
-                //settings.buttonId = "573O0000000Cb2i";//hardcode
-                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
-                break;
-            case "zh_HK":
-                settings.buttonId = "573O0000000Cb32";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
-                break;
-            default:
-                settings.buttonId = "573O0000000Cb2s";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
-            }
-        }else{
-            switch (settings.language) {
-            case "zh_CN":
-                //settings.buttonId = "573O0000000Cb2x";//hardcode
-                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-                settings.buttonId = "573O0000000Cb2i";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
-                break;
-            case "zh_HK":
-                settings.buttonId = "573O0000000Cb2n";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
-                break;
-            default:
-                settings.buttonId = "573O0000000Cb2d";//hardcode
-                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPkMAM_1730d97a711"; //hardcode
-                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
-            }
-        }
+
+
+
+    	if(document.getElementById("envSelect").value == "Dev"){
+			                settings.buttonId = "5731y0000008OO3";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CEIEA2_17309ffc012"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_Gen_EN";
+    	}else{
+			if(settings.buttonType == "Luxury Reserve"){
+			            switch (settings.language) {
+			            case "zh_CN":
+			                settings.buttonId = "573O0000000Cb2x";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+			                //settings.buttonId = "573O0000000Cb2i";//hardcode
+			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+			                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
+			                break;
+			            case "zh_HK":
+			                settings.buttonId = "573O0000000Cb32";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
+			                break;
+			            default:
+			                settings.buttonId = "573O0000000Cb2s";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
+			            }
+			        }else{
+			            switch (settings.language) {
+			            case "zh_CN":
+			                //settings.buttonId = "573O0000000Cb2x";//hardcode
+			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
+			                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
+			                settings.buttonId = "573O0000000Cb2i";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+			                break;
+			            case "zh_HK":
+			                settings.buttonId = "573O0000000Cb2n";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
+			                break;
+			            default:
+			                settings.buttonId = "573O0000000Cb2d";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPkMAM_1730d97a711"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
+			            }
+			    }
+    	}
+
+
+        
 
 
     }
@@ -210,7 +222,26 @@
 
 
     var StartChat = function() {
-        settings = {
+
+    	if(document.getElementById("envSelect").value == "Dev"){
+	        settings = {
+	        			env:"Dev";
+	                    //language:"zh_CN",//need to be set
+	                    channel:"Member Portal", //need to be set
+	                    membernumber:"AADEV-0000009230", //need to be set
+	                    orgId:"00D1y0000008l0f", //hardcode
+	                    deploymentId:"5721y0000008OMb", //hardcode
+	                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
+	                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
+	                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
+	                    gslbBaseURL:"https://service.force.com", //hardcode
+	                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
+	                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
+	                    extraPrechatFormDetails:[]
+	                    }
+    	}else{
+        	settings = {
+        			env:"SIT";
                     //language:"zh_CN",//need to be set
                     channel:"Member Portal", //need to be set
                     membernumber:"AA-0000000346", //need to be set
@@ -224,6 +255,10 @@
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
                     extraPrechatFormDetails:[]
                     }
+    	}
+
+
+
 
         var e = window.event;                
         if(e.target.innerText == 'Lux'){ //need to be set to check which button clicked
@@ -252,21 +287,22 @@
             };
             document.body.appendChild(s);
         } else {
-                //routeButton();
-                initESW('https://service.force.com');
-
-            /*
+                
             routeButton();
             embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
                     return settings.buttonId;
             }
             embedded_svc.onHelpButtonClick();
-            */
+
         }
     }
 
 </script>
+<select id="envSelect">
+  <option value="Dev">Dev</option>
+  <option value ="SIT">SIT</option>
+</select>
 <select id="languageSelect">
   <option value="en_US">en_US</option>
   <option value ="zh_CN">zh_CN</option>
