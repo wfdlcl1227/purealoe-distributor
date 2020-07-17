@@ -101,7 +101,10 @@
             surveyURL += "&guestUserLang=" + lan;
             window.open(surveyURL, "_blank");            
         });                      
-        
+	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
+	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
+	});
+
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
