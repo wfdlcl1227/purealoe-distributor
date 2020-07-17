@@ -94,12 +94,19 @@
         });          
          embedded_svc.addEventHandler("afterDestroy", function(data) {
             console.log("afterDestroy event was fired.  liveAgentSessionKey was ");
-            debugger;
+             //need to be set
             //replace the  survey url that generated in onChatEstablished event callback function
+            debugger;
+            var targetBtn = event.target.innerText;
+            if(targetBtn == 'Contact Us' || targetBtn == '联络我们' || targetBtn == '聯絡我們' ){
+                window.open("https://hkia.mp.sit.acnhk.com/en_US/contact-us", "_blank"); 
+            }
+
+
             var surveyURL = "https://sit-hkairportrewards.cs5.force.com/hkairportrewards/survey/runtimeApp.app?invitationId=0KiO00000008SOy&surveyName=chat_feedback&UUID=e676e020-34ac-4892-9497-c9f7cb11ef95";
             var lan = settings.language.replace("_","-");
             surveyURL += "&guestUserLang=" + lan;
-            //window.open(surveyURL, "_blank");            
+            window.open(surveyURL, "_blank");            
         });                      
 	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
 	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
