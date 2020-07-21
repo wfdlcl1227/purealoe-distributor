@@ -111,7 +111,10 @@
 	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
 	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
 	    if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
-	       document.styleSheets[1].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
+	       document.styleSheets[0].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
+		    document.styleSheets[1].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
+		    document.styleSheets[2].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
+		    document.styleSheets[3].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
 	    }
 	});
 
