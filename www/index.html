@@ -161,6 +161,7 @@ embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
 
 embedded_svc.addEventHandler("onQueueUpdate", function(data) {
     console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
+	document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
 });
 
 embedded_svc.addEventHandler("onConnectionError", function(data) {
