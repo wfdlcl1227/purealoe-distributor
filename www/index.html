@@ -31,9 +31,7 @@
     .agentName {
         display: none !important;
     }
-    .dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton{
-	display: none !important;    
-    }    
+
 
 </style>
 <script type='text/javascript' >
@@ -112,6 +110,9 @@
         });                      
 	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
 	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
+	    if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
+	       document.styleSheets[0].addRule('dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none !important;');
+	    }
 	});
 
         embedded_svc.init(
