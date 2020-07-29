@@ -111,7 +111,7 @@
 	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
 	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
 	    if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
-		    document.styleSheets[1].addRule('body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.dialogButtonContainer > button.dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none');
+		   // document.styleSheets[1].addRule('body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.dialogButtonContainer > button.dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none');
 	    }
 	});
 embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
@@ -161,7 +161,7 @@ embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
 
 embedded_svc.addEventHandler("onQueueUpdate", function(data) {
     console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
-	document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
+	//document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
 });
 
 embedded_svc.addEventHandler("onConnectionError", function(data) {
