@@ -34,7 +34,11 @@
     .queuePositionCounter.queuePositionNumber {
         display: none !important;
     }
-
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		.queuePositionMessage{
+			width: 15rem;
+		}
+     }	
 </style>
 	
  <!--[if IE]>
@@ -44,11 +48,7 @@
 	}
 </style>
 <![endif]-->	
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-	.queuePositionMessage{
-		width: 15rem;
-	}
-}	
+
 	
 <script type='text/javascript' >
     var initESW = function(gslbBaseURL) {
