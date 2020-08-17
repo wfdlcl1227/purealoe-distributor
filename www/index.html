@@ -35,19 +35,21 @@
         display: none !important;
     }
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        .queuePositionMessage{
-            width: 15rem;
-        }
-    }
+		.queuePositionMessage{
+			width: 15rem;
+		}
+     }	
 </style>
-    <!--[if IE]>
-        <style type='text/css'>
-            .queuePositionMessage{
-                width: 15rem;
-            }
-        </style>
-    <![endif]-->  
+	
+ <!--[if IE]>
+<style type='text/css'>
+	.queuePositionMessage{
+		width: 15rem;
+	}
+</style>
+<![endif]-->	
 
+	
 <script type='text/javascript' >
     var initESW = function(gslbBaseURL) {
         embedded_svc.settings.buttonId = settings.buttonId;
@@ -78,52 +80,122 @@
             //need to be set
             //call salesforce api to get the survey url
             //Method： get, URI:/livechatsurvey/{data.liveAgentSessionKey}
-
-			var xhr = new XMLHttpRequest();
-			xhr.withCredentials = true;
-
-			xhr.addEventListener("readystatechange", function () {
-                settings.surveyURL = this.responseText;
-			});
-			var surveyEPURL = settings.surveyEndPointURL + data.liveAgentSessionKey;
-			xhr.open("GET", surveyEPURL);
-			xhr.send();  
-
         });
 
 
+        embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
+            console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+
+        });
+        embedded_svc.addEventHandler("onIdleTimeoutWarningStart", function(data) {
+            console.log("onIdleTimeoutWarningStart event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+
+        embedded_svc.addEventHandler("onIdleTimeoutClear", function(data) {
+            console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });   
 
         embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
             console.log("onIdleTimeoutClear event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
             switch (settings.language) {
                 case "zh_CN":
-                    showEndingMessage("是次对话已结束。如需任何协助，欢迎随时再与我们联络。");
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
                     break;
                 case "zh_HK":
-                    showEndingMessage("是次對話已結束。如需任何協助，歡迎隨時再與我們聯絡。");
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");
                     break;
                 default:
-                    showEndingMessage("This chat has been ended. Feel free to contact us again if you need any help.");               
+                    showEndingMessage("Are you still there? We will be closing this chat now. Please feel free to contact us again if you need further help. Happy Shopping!");               
             }
         });          
          embedded_svc.addEventHandler("afterDestroy", function(data) {
             console.log("afterDestroy event was fired.  liveAgentSessionKey was ");
              //need to be set
             //replace the  survey url that generated in onChatEstablished event callback function
+            debugger;
             var targetBtn = event.target.innerText;
             if(targetBtn == 'Contact US' || targetBtn == '联络我们' || targetBtn == '聯絡我們' ){
-                window.open("https://hkia.mp.sit.acnhk.com/"+settings.language+"/contact-us", "_blank"); 
-
+                window.open("https://hkia.mp.sit.acnhk.com/en_US/contact-us", "_blank"); 
             }
 
-            if ((targetBtn == 'CLOSE CHAT' || targetBtn == '关闭' || targetBtn == '關閉') && settings.surveyURL && settings.surveyURL !== null) {
-                var lan = settings.language.replace("_","-");
-                window.open(settings.surveyURL + "&guestUserLang=" + lan, "_blank");
-            }
 
-          
+            var surveyURL = "https://sit-hkairportrewards.cs5.force.com/hkairportrewards/survey/runtimeApp.app?invitationId=0KiO00000008SOy&surveyName=chat_feedback&UUID=e676e020-34ac-4892-9497-c9f7cb11ef95";
+            var lan = settings.language.replace("_","-");
+            surveyURL += "&guestUserLang=" + lan;
+            //window.open(surveyURL, "_blank");            
         });                      
+	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
+	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
+	    if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
+		   // document.styleSheets[1].addRule('body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.dialogButtonContainer > button.dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none');
+	    }
+	});
+embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+    console.log("onHelpButtonClick event was fired.");
+});
 
+embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+    console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatEstablished", function(data) {
+    console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChasitorMessage", function(data) {
+    console.log("onChasitorMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentMessage", function(data) {
+    console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatConferenceInitiated", function(data) {
+    console.log("onChatConferenceInitiated event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentJoinedConference", function(data) {
+    console.log("onAgentJoinedConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onAgentLeftConference", function(data) {
+    console.log("onAgentLeftConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatConferenceEnded", function(data) {
+    console.log("onChatConferenceEnded event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
+    console.log("onChatTransferSuccessful event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+
+embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
+    console.log("onChatEndedByAgent event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onQueueUpdate", function(data) {
+    console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
+	//document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
+});
+
+embedded_svc.addEventHandler("onConnectionError", function(data) {
+    console.log("onConnectionError event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+
+embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
+    console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+});
+embedded_svc.addEventHandler("onInviteAccepted", function(data) {
+    console.log("onInviteAccepted event was fired.");
+});
+
+embedded_svc.addEventHandler("onInviteRejected", function(data) {
+    console.log("onInviteRejected event was fired.");
+});
+	    
+	    
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
@@ -139,6 +211,9 @@
                 isOfflineSupportEnabled: false
             }
         );
+
+     
+
     };
 
     function showEndingMessage(msg){
@@ -148,32 +223,117 @@
         msgParentNode.append(newMsgNode);
     }
 
-
     function routeButton(){
 
 
-        switch (settings.language) {
-        case "zh_CN":
-            settings.buttonId = "573O0000000Cb2x";//hardcode
-            settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
-            settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";           
-            break;
-        case "zh_HK":
-            settings.buttonId = "573O0000000Cb32";//hardcode
-            settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
-            settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
-            break;
-        default:
-            settings.buttonId = "573O0000000Cb2s";//hardcode
-            settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
-            settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
-        }
+
+    	if(document.getElementById("envSelect").value == "Dev"){
+			                settings.buttonId = "5731y0000008OO3";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CEIEA2_17309ffc012"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_Gen_EN";
+    	}else{
+			if(settings.buttonType == "Luxury Reserve"){
+			            switch (settings.language) {
+			            case "zh_CN":
+			                settings.buttonId = "573O0000000Cb2x";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+			                //settings.buttonId = "573O0000000Cb2i";//hardcode
+			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+			                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
+			                break;
+			            case "zh_HK":
+			                settings.buttonId = "573O0000000Cb32";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
+			                break;
+			            default:
+			                settings.buttonId = "573O0000000Cb2s";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
+			            }
+			        }else{
+			            switch (settings.language) {
+			            case "zh_CN":
+			                //settings.buttonId = "573O0000000Cb2x";//hardcode
+			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
+			                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
+			                settings.buttonId = "573O0000000Cb2i";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+			                break;
+			            case "zh_HK":
+			                settings.buttonId = "573O0000000Cb2n";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
+			                break;
+			            default:
+			                settings.buttonId = "573O0000000Cb2d";//hardcode
+			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPkMAM_1730d97a711"; //hardcode
+			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
+			            }
+			    }
+    	}
+
+
+        
 
 
     }
 
+
+    function checkAgentAvailable(){
+        var agentAvailable = true;
+        //need to do: call live agent API to check agent status with buttonId, need do the proxy by member protal
+        /*
+        var request = new XMLHttpRequest();
+        request.open('GET', "https://t6f2vhju5f.execute-api.ap-southeast-1.amazonaws.com/dev/proxy/chat/rest/Visitor/Availability?Availability.prefix=Visitor&Availability.ids=[5731y0000008OO3]&deployment_id=5721y0000008OMb&org_id=00D1y0000008l0f");
+        request.setRequestHeader("Content-type","application/json");
+        request.setRequestHeader("X-LIVEAGENT-API-VERSION","29");
+
+        request.send();
+        request.onload = function(e){
+            console.log(request)
+
+            if (request.status === 200) {
+                alert('success');
+            }
+            else{
+                alert('failed');
+            }
+        }
+        request.onerror = function(e){
+           debugger;
+        }
+        */
+        if(agentAvailable){
+            StartChat();
+        }else{
+        //need to do: no agent online then redirect to offline contact us page
+        }
+
+    }
+
+
     var StartChat = function() {
 
+    	if(document.getElementById("envSelect").value == "Dev"){
+	        settings = {
+	        			env:"Dev",
+	                    //language:"zh_CN",//need to be set
+	                    channel:"Member Portal", //need to be set
+	                    membernumber:"AADEV-0000009230", //need to be set
+	                    orgId:"00D1y0000008l0f", //hardcode
+	                    deploymentId:"5721y0000008OMb", //hardcode
+	                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
+	                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
+	                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
+	                    gslbBaseURL:"https://service.force.com", //hardcode
+	                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
+	                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
+	                    extraPrechatFormDetails:[]
+	                    }
+    	}else{
         	settings = {
         			env:"SIT",
                     //language:"zh_CN",//need to be set
@@ -185,18 +345,21 @@
                     communityURL:"https://sit-hkairportrewards.cs5.force.com/hkairportrewards", //hardcode
                     eswJSURL:"https://hkairportloyalty--sit.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
                     gslbBaseURL:"https://service.force.com", //hardcode
-                    surveyURL:"", //hardcode
-                    surveyEndPointURL:"https://sit.api.iss.acnhk.com/loyalty/survey/liveChatUrl/", //hardcode
                     baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
                     extraPrechatFormDetails:[]
                     }
+    	}
+
+
+
 
         var e = window.event;                
-        //For EMP this is Luxury Reserve
-        settings.buttonType = 'Luxury Reserve';//hardcode
-        //For EMP this is Luxury Reserve
-        //settings.buttonType = 'General Inquery';//hardcode
+        if(e.target.innerText == 'Lux'){ //need to be set to check which button clicked
+            settings.buttonType = 'Luxury Reserve';//hardcode
+        }else{
+            settings.buttonType = 'General Enquiry'//hardcode
+        }
 
         settings.language = document.getElementById("languageSelect").value;
 
@@ -230,13 +393,18 @@
     }
 
 </script>
-
+<select id="envSelect">
+  <option value ="SIT">SIT</option>
+  <option value="Dev">Dev</option>
+</select>
 <select id="languageSelect">
   <option value="en_US">en_US</option>
   <option value ="zh_CN">zh_CN</option>
   <option value ="zh_HK">zh_HK</option>
 </select><br/><br/><br/>
-<button type="button" onclick="StartChat()">Lux</button>
+<button type="button" onclick="checkAgentAvailable()">Lux</button>
+<button type="button" onclick="checkAgentAvailable()">Gen</button>
+
 
     
 </body>
