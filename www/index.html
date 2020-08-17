@@ -8,38 +8,60 @@
 <body>
 
 <style type='text/css'>
-    .embeddedServiceHelpButton .helpButton .uiButton {
-        background-color: #005290;
-        font-family: "Arial", sans-serif;
-    }
-    .embeddedServiceHelpButton .helpButton .uiButton:focus {
-        outline: 1px solid #005290;
-    }
-
-    .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent{
-        margin-left: 0px !important;
-    }
-    .content{
-        display: none !important;
-    }
-    .avatar{
-        display: none !important;
-    }
-    .embeddedServiceLiveAgentQueuePosition.queuePositionWaiting .youAreNextMessage {
-        font-size: 20px !important;
-    }
-    .agentName {
-        display: none !important;
-    }
-    .queuePositionCounter.queuePositionNumber {
-        display: none !important;
-    }
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-		.queuePositionMessage{
-			width: 15rem;
-		}
-     }	
-</style>
+ .embeddedServiceHelpButton .helpButton .uiButton {
+ background-color: #005290;
+ font-family: "Arial", sans-serif;
+ }
+ 
+ .embeddedServiceHelpButton .helpButton .uiButton:focus {
+ outline: 1px solid #005290;
+ }
+ 
+ .embeddedServiceLiveAgentStateChatPlaintextMessageDefaultUI.plaintextContent {
+ margin-left: 0px !important;
+ }
+ 
+ /* .content {
+ display: none !important;
+ } */
+ 
+ .avatar {
+ display: none !important;
+ }
+ 
+ .embeddedServiceLiveAgentQueuePosition.queuePositionWaiting .youAreNextMessage {
+ font-size: 20px !important;
+ }
+ 
+ .agentName {
+ display: none !important;
+ }
+ 
+ .embeddedServiceSidebarMinimizedDefaultUI .minimizedText>.message {
+ background-color: rgba(0, 0, 0, 0) !important;
+ }
+ 
+ .embeddedServiceSidebarMinimizedDefaultUI.sidebarHeader {
+ bottom: 0 !important;
+ }
+ 
+ .queuePositionCounter.queuePositionNumber {
+ display: none !important;
+ }
+ 
+ @media all and (-ms-high-contrast: none),
+ (-ms-high-contrast: active) {
+ .queuePositionMessage {
+ width: 15rem;
+ }
+ }
+ body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar 
+ > div > div > div.activeFeature.hideWhileLoading > div > div 
+ > div.chasitorInputWrapper.dynamicResizeTextOneRow.text.embeddedServiceLiveAgentStateChatInputFooter 
+ > div > button{
+ display: none;
+ }
+ </style>
 	
  <!--[if IE]>
 <style type='text/css'>
