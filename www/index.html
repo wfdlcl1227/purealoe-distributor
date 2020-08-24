@@ -100,7 +100,7 @@
 			var xhr = new XMLHttpRequest();
 
 			xhr.addEventListener("readystatechange", function () {
-                settings.surveyURL = this.responseText;
+                settings.surveyURL = this.responseText.replace("\"","").replace("\"","");
 			});
 			var surveyEPURL = settings.surveyEndPointURL + data.liveAgentSessionKey;
 			xhr.open("GET", surveyEPURL);
@@ -194,7 +194,7 @@
         	settings = {
         			env:"SIT",
                     //language:"zh_CN",//need to be set
-                    channel:"HKairport Shop", //need to be set
+                    channel:"Member Portal", //need to be set
                     membernumber:"AA-0000000346", //need to be set
                     orgId:"00DO00000053jxe", //hardcode
                     deploymentId:"572O0000000Cb7T", //hardcode
@@ -246,27 +246,6 @@
         }
     }
 
-
-    function getsurvey(){
-
-            //need to be set
-            //call salesforce api to get the survey url
-            //Method： get, URI:/livechatsurvey/{data.liveAgentSessionKey}
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.addEventListener("readystatechange", function () {
-                debugger;
-                //settings.surveyURL = this.responseText;
-		var aaa = this.responseText;
-            });
-            //var surveyEPURL = settings.surveyEndPointURL + data.liveAgentSessionKey;
-            xhr.open("GET", "https://sit.api.iss.acnhk.com/loyalty/survey/liveChatUrl/e4d11785-17f0-456c-9a0c-898c71038f4e");
-            xhr.send();             
-
-
-    }
-
 </script>
 
 <select id="languageSelect">
@@ -275,7 +254,7 @@
   <option value ="zh_HK">zh_HK</option>
 </select><br/><br/><br/>
 <button type="button" onclick="StartChat()">Lux</button>
-<button type="button" onclick="getsurvey()">survey</button>
+
     
 </body>
 </html>
