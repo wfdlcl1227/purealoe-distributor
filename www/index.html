@@ -257,10 +257,11 @@
 
             xhr.addEventListener("readystatechange", function () {
                 debugger;
-                settings.surveyURL = this.responseText;
+                //settings.surveyURL = this.responseText;
+		var aaa = this.responseText;
             });
-            var surveyEPURL = settings.surveyEndPointURL + data.liveAgentSessionKey;
-            xhr.open("GET", surveyEPURL);
+            //var surveyEPURL = settings.surveyEndPointURL + data.liveAgentSessionKey;
+            xhr.open("GET", "https://sit.api.iss.acnhk.com/loyalty/survey/liveChatUrl/e4d11785-17f0-456c-9a0c-898c71038f4e");
             xhr.send();             
 
 
