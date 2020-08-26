@@ -256,9 +256,28 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
 
 
     	if(document.getElementById("envSelect").value == "Dev"){
-			                settings.buttonId = "5731y0000008OO3";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CEIEA2_17309ffc012"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_Gen_EN";
+
+                            
+                            switch (settings.language) {
+                                case "zh_CN":
+                                    settings.buttonId = "5731y0000008OP1";//hardcode
+                                    settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CENEA2_1730a01065b"; //hardcode
+                                    settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";
+                                    //settings.buttonId = "573O0000000Cb2i";//hardcode
+                                    //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+                                    //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
+                                    break;
+                                case "zh_HK":
+                                    settings.buttonId = "5731y0000008OOw";//hardcode
+                                    settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CESEA2_1730a027bd9"; //hardcode
+                                    settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";                
+                                    break;
+                                default:
+                                    settings.buttonId = "5731y0000008OO3";//hardcode
+                                    settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I1y0000004CEIEA2_17309ffc012"; //hardcode
+                                    settings.eswLiveAgentDeploymentName = "Live_Chat_Gen_EN";
+                            }
+
     	}else{
 			if(settings.buttonType == "Luxury Reserve"){
 			            switch (settings.language) {
