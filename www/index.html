@@ -51,19 +51,19 @@
 
  p[embeddedService-chatHeaderAnnouncement_chatHeaderAnnouncement]{
  position: absolute;
- }	
+ }  
  
  @media all and (-ms-high-contrast: none),
  (-ms-high-contrast: active) {
-	 .queuePositionMessage {
-	 width: 15rem;
-	 }
-	.sidebarHeader[embeddedService-chatHeader_chatHeader]{
-		text-align: left;
-	}	 
+   .queuePositionMessage {
+   width: 15rem;
+   }
+  .sidebarHeader[embeddedService-chatHeader_chatHeader]{
+    text-align: left;
+  }  
     p[embeddedService-chatHeaderAnnouncement_chatHeaderAnnouncement]{
     position: relative;
-    }	    
+    }     
  }
  body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar 
  > div > div > div.activeFeature.hideWhileLoading > div > div 
@@ -71,27 +71,27 @@
  > div > button{
  display: none;
  }
-	
+  
 .embeddedServiceSidebarMinimizedDefaultUI .queuePositionNumber {
     display: none;
 }
  </style>
-	
+  
  <!--[if IE]>
 <style type='text/css'>
-	.queuePositionMessage{
-		width: 15rem;
-	}
-	.sidebarHeader{
-		text-align: left;
-	}
+  .queuePositionMessage{
+    width: 15rem;
+  }
+  .sidebarHeader{
+    text-align: left;
+  }
     p[embeddedService-chatHeaderAnnouncement_chatHeaderAnnouncement]{
     position: relative;
-    }	    
+    }     
 </style>
-<![endif]-->	
+<![endif]-->  
 
-	
+  
 <script type='text/javascript' >
     var initESW = function(gslbBaseURL) {
         embedded_svc.settings.buttonId = settings.buttonId;
@@ -166,12 +166,12 @@
             surveyURL += "&guestUserLang=" + lan;
             //window.open(surveyURL, "_blank");            
         });                      
-	 embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
-	    console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
-	    if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
-		   // document.styleSheets[1].addRule('body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.dialogButtonContainer > button.dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none');
-	    }
-	});
+   embedded_svc.addEventHandler("onSettingsCallCompleted", function(data) {
+      console.log("onSettingsCallCompleted event was fired. Agent availability status is " + data.isAgentAvailable ? "online": "offline");
+      if(!data.isAgentAvailable || data.isAgentAvailable == "false"){
+       // document.styleSheets[1].addRule('body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.dialogButtonContainer > button.dialogButton.dialog-button-0.uiButton.embeddedServiceSidebarButton', 'display: none');
+      }
+  });
 embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
     console.log("onHelpButtonClick event was fired.");
 });
@@ -219,7 +219,7 @@ embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
 
 embedded_svc.addEventHandler("onQueueUpdate", function(data) {
     console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
-	//document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
+  //document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
 });
 
 embedded_svc.addEventHandler("onConnectionError", function(data) {
@@ -236,8 +236,8 @@ embedded_svc.addEventHandler("onInviteAccepted", function(data) {
 embedded_svc.addEventHandler("onInviteRejected", function(data) {
     console.log("onInviteRejected event was fired.");
 });
-	    
-	    
+      
+      
         embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
@@ -269,7 +269,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
 
 
 
-    	if(document.getElementById("envSelect").value == "Dev"){
+      if(document.getElementById("envSelect").value == "Dev"){
 
                             
                             switch (settings.language) {
@@ -292,132 +292,127 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
                                     settings.eswLiveAgentDeploymentName = "Live_Chat_Gen_EN";
                             }
 
-    	}else if(document.getElementById("envSelect").value == "DryRun"){
-			if(settings.buttonType == "Luxury Reserve"){
-			            switch (settings.language) {
-			            case "zh_CN":
-			                settings.buttonId = "5730w0000004CRk";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D9EAI_1742f59de56"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+      }else if(document.getElementById("envSelect").value == "DryRun"){
+      if(settings.buttonType == "Luxury Reserve"){
+                  switch (settings.language) {
+                  case "zh_CN":
+                      settings.buttonId = "5730w0000004CRk";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D9EAI_1742f59de56"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
                 
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "5730w0000004CRp";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000DAEAY_1742f5a223e"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
-			                break;
-			            default:
-			                settings.buttonId = "5730w0000004CRf";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D8EAI_1742f598d1e"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
-			            }
-			        }else{
-			            switch (settings.language) {
-			            case "zh_CN":
-			                //settings.buttonId = "573O0000000Cb2x";//hardcode
-			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-			                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-			                settings.buttonId = "5730w0000004CRz";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D6EAI_1742f5665bb"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "5730w0000004CS4";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D7EAI_1742f592f15"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
-			                break;
-			            default:
-			                settings.buttonId = "5730w0000004CRu";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D5EAI_1742f535862"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                    
-			            }
-			    }
-    	}else if(document.getElementById("envSelect").value == "Prod"){
-			if(settings.buttonType == "Luxury Reserve"){
-			            switch (settings.language) {
-			            case "zh_CN":
-			                settings.buttonId = "573O0000000Cb2x";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
-			                //settings.buttonId = "573O0000000Cb2i";//hardcode
-			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-			                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "573O0000000Cb32";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
-			                break;
-			            default:
-			                settings.buttonId = "573O0000000Cb2s";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
-			            }
-			        }else{
-			            switch (settings.language) {
-			            case "zh_CN":
-			                //settings.buttonId = "573O0000000Cb2x";//hardcode
-			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-			                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-			                settings.buttonId = "573O0000000Cb2i";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "573O0000000Cb2n";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
-			                break;
-			            default:
-			                settings.buttonId = "573O0000000Cb2d";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPkMAM_1730d97a711"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
-			            }
-			    }
-    	}
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "5730w0000004CRp";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000DAEAY_1742f5a223e"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
+                      break;
+                  default:
+                      settings.buttonId = "5730w0000004CRf";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D8EAI_1742f598d1e"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
+                  }
+              }else{
+                  switch (settings.language) {
+                  case "zh_CN":
+                      //settings.buttonId = "573O0000000Cb2x";//hardcode
+                      //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
+                      //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
+                      settings.buttonId = "5730w0000004CRz";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D6EAI_1742f5665bb"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "5730w0000004CS4";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D7EAI_1742f592f15"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
+                      break;
+                  default:
+                      settings.buttonId = "5730w0000004CRu";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D5EAI_1742f535862"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                    
+                  }
+          }
+      }else if(document.getElementById("envSelect").value == "Prod"){
+      if(settings.buttonType == "Luxury Reserve"){
+                  switch (settings.language) {
+                  case "zh_CN":
+                      settings.buttonId = "5732r000000CaRR";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000eEAA_174445d45e5"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+                
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "5732r000000CaRW";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000fEAA_174445e034f"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
+                      break;
+                  default:
+                      settings.buttonId = "5732r000000CaRM";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000dEAA_174445cca62"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
+                  }
+              }else{
+                  switch (settings.language) {
+                  case "zh_CN":
+                      settings.buttonId = "5732r000000CaRg";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000bEAA_174445c0bc8"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "5732r000000CaRl";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000cEAA_174445c76bd"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
+                      break;
+                  default:
+                      settings.buttonId = "5732r000000CaRb";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I2r000000000aEAA_174445a55bb"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
+                  }
+          }
+      }
         else{
-			if(settings.buttonType == "Luxury Reserve"){
-			            switch (settings.language) {
-			            case "zh_CN":
-			                settings.buttonId = "573O0000000Cb2x";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
-			                //settings.buttonId = "573O0000000Cb2i";//hardcode
-			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-			                //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "573O0000000Cb32";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
-			                break;
-			            default:
-			                settings.buttonId = "573O0000000Cb2s";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
-			            }
-			        }else{
-			            switch (settings.language) {
-			            case "zh_CN":
-			                //settings.buttonId = "573O0000000Cb2x";//hardcode
-			                //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
-			                //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
-			                settings.buttonId = "573O0000000Cb2i";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
-			                break;
-			            case "zh_HK":
-			                settings.buttonId = "573O0000000Cb2n";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
-			                break;
-			            default:
-			                settings.buttonId = "5730w0000004CRu";//hardcode
-			                settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D5EAI_1742f535862"; //hardcode
-			                settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
-			            }
-			    }
-    	}
+      if(settings.buttonType == "Luxury Reserve"){
+                  switch (settings.language) {
+                  case "zh_CN":
+                      settings.buttonId = "573O0000000Cb2x";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ9MAM_1731266dd3e"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_SC";
+                      //settings.buttonId = "573O0000000Cb2i";//hardcode
+                      //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+                      //settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                    
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "573O0000000Cb32";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQEMA2_1731270d8e1"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_TC";                
+                      break;
+                  default:
+                      settings.buttonId = "573O0000000Cb2s";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQJMA2_17312735dcb"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_LUX_EN";                
+                  }
+              }else{
+                  switch (settings.language) {
+                  case "zh_CN":
+                      //settings.buttonId = "573O0000000Cb2x";//hardcode
+                      //settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OQ4MAM_1730da66dc0"; //hardcode
+                      //settings.eswLiveAgentDeploymentName = "Live_Chat_Lux_SC";
+                      settings.buttonId = "573O0000000Cb2i";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPpMAM_1730da480c1"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_SC";                  
+                      break;
+                  case "zh_HK":
+                      settings.buttonId = "573O0000000Cb2n";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04IO00000008OPuMAM_1730da4f18d"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_TC";  
+                      break;
+                  default:
+                      settings.buttonId = "5730w0000004CRu";//hardcode
+                      settings.eswLiveAgentDevName = "EmbeddedServiceLiveAgent_Parent04I0w00000000D5EAI_1742f535862"; //hardcode
+                      settings.eswLiveAgentDeploymentName = "Live_Chat_GEN_EN";                  
+                  }
+          }
+      }
 
 
         
@@ -459,58 +454,58 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
 
     var StartChat = function() {
 
-    	if(document.getElementById("envSelect").value == "Dev"){
-	        settings = {
-	        			env:"Dev",
-	                    //language:"zh_CN",//need to be set
-	                    channel:"Member Portal", //need to be set
-	                    membernumber:"AADEV-0000009230", //need to be set
-	                    orgId:"00D1y0000008l0f", //hardcode
-	                    deploymentId:"5721y0000008OMb", //hardcode
-	                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
-	                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
-	                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
-	                    gslbBaseURL:"https://service.force.com", //hardcode
-	                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
-	                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-	                    extraPrechatFormDetails:[]
-	                    }
-    	} else if(document.getElementById("envSelect").value == "DryRun"){
-	        settings = {
-	        			env:"DryRun",
-	                    //language:"zh_CN",//need to be set
-	                    channel:"Member Portal", //need to be set
-	                    membernumber:"", //need to be set
-	                    orgId:"00D0w0000000shh", //hardcode
-	                    deploymentId:"5720w0000004CPj", //hardcode
-	                    myDomainURL:"https://hkairportloyalty--dryrun0831.my.salesforce.com", //hardcode
-	                    communityURL:"https://dryrun0831-hkairportrewards.cs75.force.com", //hardcode
-	                    eswJSURL:"https://hkairportloyalty--dryrun0831.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
-	                    gslbBaseURL:"https://service.force.com", //hardcode
-	                    baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
-	                    baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-	                    extraPrechatFormDetails:[]
-	                    }
-    	}else if(document.getElementById("envSelect").value == "Prod"){
-	        settings = {
-	        			env:"Dev",
-	                    //language:"zh_CN",//need to be set
-	                    channel:"Member Portal", //need to be set
-	                    membernumber:"AADEV-0000009230", //need to be set
-	                    orgId:"00D1y0000008l0f", //hardcode
-	                    deploymentId:"5721y0000008OMb", //hardcode
-	                    myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
-	                    communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
-	                    eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
-	                    gslbBaseURL:"https://service.force.com", //hardcode
-	                    baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
-	                    baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-	                    extraPrechatFormDetails:[]
-	                    }
-    	}
+      if(document.getElementById("envSelect").value == "Dev"){
+          settings = {
+                env:"Dev",
+                      //language:"zh_CN",//need to be set
+                      channel:"Member Portal", //need to be set
+                      membernumber:"AADEV-0000009230", //need to be set
+                      orgId:"00D1y0000008l0f", //hardcode
+                      deploymentId:"5721y0000008OMb", //hardcode
+                      myDomainURL:"https://hkairportloyalty--dev1.my.salesforce.com", //hardcode
+                      communityURL:"https://dev1-member-portal.cs114.force.com/memberportal", //hardcode
+                      eswJSURL:"https://hkairportloyalty--dev1.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
+                      gslbBaseURL:"https://service.force.com", //hardcode
+                      baseLiveAgentURL:"https://d.la2-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
+                      baseLiveAgentContentURL:"https://c.la2-c1cs-hnd.salesforceliveagent.com/content", //hardcode
+                      extraPrechatFormDetails:[]
+                      }
+      } else if(document.getElementById("envSelect").value == "DryRun"){
+          settings = {
+                env:"DryRun",
+                      //language:"zh_CN",//need to be set
+                      channel:"Member Portal", //need to be set
+                      membernumber:"", //need to be set
+                      orgId:"00D0w0000000shh", //hardcode
+                      deploymentId:"5720w0000004CPj", //hardcode
+                      myDomainURL:"https://hkairportloyalty--dryrun0831.my.salesforce.com", //hardcode
+                      communityURL:"https://dryrun0831-hkairportrewards.cs75.force.com", //hardcode
+                      eswJSURL:"https://hkairportloyalty--dryrun0831.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
+                      gslbBaseURL:"https://service.force.com", //hardcode
+                      baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
+                      baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
+                      extraPrechatFormDetails:[]
+                      }
+      }else if(document.getElementById("envSelect").value == "Prod"){
+          settings = {
+                env:"Prod",
+                      //language:"zh_CN",//need to be set
+                      channel:"Member Portal", //need to be set
+                      membernumber:"", //need to be set
+                      orgId:"00D2v000002G018", //hardcode
+                      deploymentId:"5722r0000008OIA", //hardcode
+                      myDomainURL:"https://hkairportloyalty.my.salesforce.com", //hardcode
+                      communityURL:"https://login.hkairportrewards.com", //hardcode
+                      eswJSURL:"https://hkairportloyalty.my.salesforce.com/embeddedservice/5.0/esw.min.js", //hardcode
+                      gslbBaseURL:"https://service.force.com", //hardcode
+                      baseLiveAgentURL:"https://d.la2-c1-ukb.salesforceliveagent.com/chat", //hardcode
+                      baseLiveAgentContentURL:"https://c.la2-c1-ukb.salesforceliveagent.com/content", //hardcode
+                      extraPrechatFormDetails:[]
+                      }
+      }
         else{
-        	settings = {
-        			env:"SIT",
+          settings = {
+              env:"SIT",
                     //language:"zh_CN",//need to be set
                     channel:"Member Portal", //need to be set
                     membernumber:"AA-0000000346", //need to be set
@@ -524,7 +519,7 @@ embedded_svc.addEventHandler("onInviteRejected", function(data) {
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
                     extraPrechatFormDetails:[]
                     }
-    	}
+      }
 
 
 
