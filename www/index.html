@@ -255,7 +255,7 @@
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", handler);
 
-        xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
+        xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
         xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQO.j.3aKpllIDISRdquvfx46VxAZQyUnPEtCLkMSb8uMM2XPQdQCyA_f_RMbdxIQfk5jsLtNBG3ruXzCjveNKo7I8F5R");
         xhr.send(data);
 
@@ -265,7 +265,12 @@
 
     function testPromise(msg){
         getCurrentQueueNumber().then(function(json) {
-          console.log('Contents: ' + json);
+          console.log('Contents1: ' + json);
+          return getMaxQueueNumber();
+        }, function(error) {
+          console.error('出错了', error);
+        }).then(function(json) {
+          console.log('Contents2: ' + json);
         }, function(error) {
           console.error('出错了', error);
         }).catch(function(error) {
