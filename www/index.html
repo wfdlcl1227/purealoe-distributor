@@ -159,8 +159,29 @@
         });           
 
         embedded_svc.addEventHandler("onQueueUpdate", function(data) {
-            console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
-          //document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append("xxxxxxxxxxxxxxx");
+            debugger;
+            if(settings.maxQueueNum < settings.currentQueueNum){
+
+                var ContactUsBtn = <button class="dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton"  data-aura-class="uiButton embeddedServiceSidebarButton"><!--render facet: 269:0--><span class=" label bBody" dir="ltr" data-aura-rendered-by="271:0">YES, EXIT</span><!--render facet: 273:0--></button>
+
+                var btn = document.createElement("button");
+                btn.class = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
+                
+                switch (settings.language) {
+                case "zh_CN":
+                    btn.innerText = '联络我们';
+                    break;
+                case "zh_HK":
+                    btn.innerText = '聯絡我們';
+                    break;
+                default:
+                    btn.innerText = 'Contact Us';
+                       
+                }
+
+                document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append(btn);
+            }
+
         });
 
         embedded_svc.init(
@@ -216,11 +237,16 @@
         var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
-                debugger;
-                var ret = JSON.parse(this.responseText);
+                if(result!=null && result !="" && result != 'undefined'){
+                    var ret = JSON.parse(this.responseText);
+                    if(ret.records[0].expr0!=null && ret.records[0].expr0 !="" && ret.records[0].expr0 != 'undefined'){
+                        settings.currentQueueNum = ret.records[0].expr0;
+                    }    
+                    
+                }
             });
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJzjsPYqLZIUCmDyMj5hc5hfAvWT8PkQpFjZ0xekzzneeTWzXk8vbFNdqE8zx4JjHQPvMihOzspAZopzxR2qdCXPEv8Z");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQEe_hCVtCC8z4irkgY2VX0EMZ8uIhHjcbZtS8ZtUILoJzNKKRlxAcLxtdl33lWN5lpIJ6Q71we.Rb2D6ou0KG2fvPuf8");
         xhr.send(data);
 
     };
@@ -230,13 +256,17 @@
         var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
-                debugger;
-                var ret = JSON.parse(this.responseText);
+                if(result!=null && result !="" && result != 'undefined'){
+                    var ret = JSON.parse(this.responseText);
+                    if(ret.records[0].LiveChat_Display_ContactUs_Number__c!=null && ret.records[0].LiveChat_Display_ContactUs_Number__c !="" && ret.records[0].LiveChat_Display_ContactUs_Number__c != 'undefined'){
+                        settings.maxQueueNum = ret.records[0].LiveChat_Display_ContactUs_Number__c;
+                    }
+                }
 
             });
 
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJzjsPYqLZIUCmDyMj5hc5hfAvWT8PkQpFjZ0xekzzneeTWzXk8vbFNdqE8zx4JjHQPvMihOzspAZopzxR2qdCXPEv8Z");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQEe_hCVtCC8z4irkgY2VX0EMZ8uIhHjcbZtS8ZtUILoJzNKKRlxAcLxtdl33lWN5lpIJ6Q71we.Rb2D6ou0KG2fvPuf8");
         xhr.send(data);
 
     };
