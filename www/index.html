@@ -213,7 +213,7 @@
 
 
     var getCurrentQueueNumber = function() {
-
+        var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
                 debugger;
@@ -227,8 +227,10 @@
 
 
     var getMaxQueueNumber = function() {
+        var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
+                debugger;
                 var ret = JSON.parse(this.responseText);
 
             });
