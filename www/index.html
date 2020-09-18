@@ -235,7 +235,7 @@
         var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
-                if(result!=null && result !="" && result != 'undefined'){
+                if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
                     var ret = JSON.parse(this.responseText);
                     if(ret.records[0].expr0!=null && ret.records[0].expr0 !="" && ret.records[0].expr0 != 'undefined'){
                         settings.currentQueueNum = ret.records[0].expr0;
@@ -254,7 +254,7 @@
         var data = null;
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
-                if(result!=null && result !="" && result != 'undefined'){
+                if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
                     var ret = JSON.parse(this.responseText);
                     if(ret.records[0].LiveChat_Display_ContactUs_Number__c!=null && ret.records[0].LiveChat_Display_ContactUs_Number__c !="" && ret.records[0].LiveChat_Display_ContactUs_Number__c != 'undefined'){
                         settings.maxQueueNum = ret.records[0].LiveChat_Display_ContactUs_Number__c;
