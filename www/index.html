@@ -212,92 +212,40 @@
     }
 
 
-    const getCurrentQueueNumber = function() {
-      const promise = new Promise(function(resolve, reject){
-        const handler = function() {
-          if (this.readyState !== 4) {
-            return;
-          }
-          if (this.status === 200) {
-            resolve(this.response);
-          } else {
-            reject(new Error(this.statusText));
-          }
-        };
+    var getCurrentQueueNumber = function() {
 
-        var data = null;
         var xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", handler);
+        xhr.addEventListener("readystatechange", function () {
+                debugger;
+                var ret = JSON.parse(this.responseText);
+            });
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQO.j.3aKpllIDISRdquvfx46VxAZQyUnPEtCLkMSb8uMM2XPQdQCyA_f_RMbdxIQfk5jsLtNBG3ruXzCjveNKo7I8F5R");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJzjsPYqLZIUCmDyMj5hc5hfAvWT8PkQpFjZ0xekzzneeTWzXk8vbFNdqE8zx4JjHQPvMihOzspAZopzxR2qdCXPEv8Z");
         xhr.send(data);
 
-      });
-      return promise;
     };
 
 
-
-    const getMaxQueueNumber = function() {
-      const promise = new Promise(function(resolve, reject){
-        const handler = function() {
-          if (this.readyState !== 4) {
-            return;
-          }
-          if (this.status === 200) {
-            resolve(this.response);
-          } else {
-            reject(new Error(this.statusText));
-          }
-        };
-
-        var data = null;
+    var getMaxQueueNumber = function() {
         var xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", handler);
+        xhr.addEventListener("readystatechange", function () {
+                var ret = JSON.parse(this.responseText);
+
+            });
 
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQO.j.3aKpllIDISRdquvfx46VxAZQyUnPEtCLkMSb8uMM2XPQdQCyA_f_RMbdxIQfk5jsLtNBG3ruXzCjveNKo7I8F5R");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJzjsPYqLZIUCmDyMj5hc5hfAvWT8PkQpFjZ0xekzzneeTWzXk8vbFNdqE8zx4JjHQPvMihOzspAZopzxR2qdCXPEv8Z");
         xhr.send(data);
 
-      });
-      return promise;
     };
 
-    function testPromise(msg){
-        getCurrentQueueNumber().then(function(json) {
-          console.log('Contents1: ' + json);
-          return getMaxQueueNumber();
-        }, function(error) {
-          console.error('出错了', error);
-        }).then(function(json) {
-          console.log('Contents2: ' + json);
-        }, function(error) {
-          console.error('出错了', error);
-        }).catch(function(error) {
-            console.log('oh no', error);});            
+    function testPromise(){
+        getMaxQueueNumber();
+        getCurrentQueueNumber();
     }
 
 
 
-    function showEndingMessage(msg){
-        var data = null;
-
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
-            console.log(this.responseText);
-          }
-        });
-
-        xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQHRt1knle46xbiIOGT4dG7iiFNluZB9yl2Sx.9qJ4LEoFM7G4iqa.sfHvT80GhuyRK7e6uZsS1GPSd250.j1Gsk0arbk");
-        xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.setRequestHeader("Postman-Token", "02d549ec-510d-40db-8a28-0ecab5af97e0");
-
-        xhr.send(data);
-    }
 
     var StartChat = function() {
 
@@ -317,6 +265,8 @@
                     baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
                     extraPrechatFormDetails:[]
+                    currentQueueNum:0, //NO need to be set
+                    maxQueueNum:0, //NO need to be set
                     }
 
         var e = window.event;                
