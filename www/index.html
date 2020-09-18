@@ -314,6 +314,8 @@
                              {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true, "transcriptFields": ["Type__c"],},
                              {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];         
 
+        
+        testPromise();
         if (!window.embedded_svc) {
             var s = document.createElement('script');
             s.setAttribute('src', settings.eswJSURL);
