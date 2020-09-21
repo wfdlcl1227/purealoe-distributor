@@ -163,8 +163,8 @@
             if(settings.maxQueueNum < settings.currentQueueNum){
 
                 var btn = document.createElement("button");
-                btn.class = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
-                
+                btn.className = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
+
                 switch (settings.language) {
                 case "zh_CN":
                     btn.innerText = '联络我们';
@@ -176,7 +176,9 @@
                     btn.innerText = 'Contact Us';
                        
                 }
-
+                btn.onclick = function(){
+                    window.open("https://hkia.mp.sit.acnhk.com/"+settings.language+"/contact-us", "_blank"); 
+                }
                 document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append(btn);
             }
 
@@ -244,7 +246,7 @@
                 }
             });
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJdVOCqdwl_lToM4DSR2GeL7griGRxvTJ_eqCGesVkiziUNI8d3J2K36NyI9ekvKrGQWzcFWYiOvI1Rze5ftYegYwsvA");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQCBpOXpi86PR_jDLWFNA8Qxvq3A9aCqK5p44JHc1xvytAnDvitlwRJgjWiDH2ZAC3tBFau7s5ZPYnydZhkEh2oK7ImAZ");
         xhr.send(data);
 
     };
@@ -264,7 +266,7 @@
             });
 
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQJdVOCqdwl_lToM4DSR2GeL7griGRxvTJ_eqCGesVkiziUNI8d3J2K36NyI9ekvKrGQWzcFWYiOvI1Rze5ftYegYwsvA");
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQCBpOXpi86PR_jDLWFNA8Qxvq3A9aCqK5p44JHc1xvytAnDvitlwRJgjWiDH2ZAC3tBFau7s5ZPYnydZhkEh2oK7ImAZ");
         xhr.send(data);
 
     };
