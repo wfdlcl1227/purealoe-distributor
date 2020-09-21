@@ -162,9 +162,11 @@
             debugger;
             if(settings.maxQueueNum < settings.currentQueueNum){
 
+                if(document.getElementById("lc-contact-btn")) return;
+
                 var btn = document.createElement("button");
                 btn.className = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
-
+                btn.id = "lc-contact-btn";
                 switch (settings.language) {
                 case "zh_CN":
                     btn.innerText = '联络我们';
@@ -174,7 +176,6 @@
                     break;
                 default:
                     btn.innerText = 'Contact Us';
-                       
                 }
                 btn.onclick = function(){
                     window.open("https://hkia.mp.sit.acnhk.com/"+settings.language+"/contact-us", "_blank"); 
@@ -246,7 +247,7 @@
                 }
             });
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQDVtNzcadpigWRvIPS.GRQUSGj5DDABvKTFu7oMwZXC_ayyby7WWHvyBX4Vp.MOrzPb0Ur2f1OiiyDmggJdo6lrXir9J");
+        xhr.setRequestHeader("Authorization", "Bearer " + getenv('SF_Token'));
         xhr.send(data);
 
     };
@@ -262,25 +263,20 @@
                         settings.maxQueueNum = ret.records[0].LiveChat_Display_ContactUs_Number__c;
                     }
                 }
-
             });
 
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQDVtNzcadpigWRvIPS.GRQUSGj5DDABvKTFu7oMwZXC_ayyby7WWHvyBX4Vp.MOrzPb0Ur2f1OiiyDmggJdo6lrXir9J");
+        xhr.setRequestHeader("Authorization", "Bearer" + getenv('SF_Token'));
         xhr.send(data);
 
     };
 
-    function testPromise(){
+    function getQueueNumber(){
         getMaxQueueNumber();
         getCurrentQueueNumber();
     }
 
-
-
-
     var StartChat = function() {
-
             settings = {
                     env:"SIT",
                     //language:"zh_CN",//need to be set
@@ -309,15 +305,14 @@
 
         settings.language = document.getElementById("languageSelect").value;
 
-
-
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true, "transcriptFields": ["Preferred_Communication_Language__c"],},
                              {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true, "transcriptFields": ["Type__c"],},
                              {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];         
 
-        
-        testPromise();
+        // get current queue number and max queue number
+        getQueueNumber();
+
         if (!window.embedded_svc) {
             var s = document.createElement('script');
             s.setAttribute('src', settings.eswJSURL);
@@ -325,18 +320,15 @@
             s.onload = function() {
                 routeButton();
                 initESW(null);
-                
             };
             document.body.appendChild(s);
         } else {
-                
             routeButton();
             embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
                     return settings.buttonId;
             }
             embedded_svc.onHelpButtonClick();
-
         }
     }
 
@@ -348,7 +340,5 @@
   <option value ="zh_HK">zh_HK</option>
 </select><br/><br/><br/>
 <button type="button" onclick="StartChat()">Lux</button>
-<button type="button" onclick="testPromise()">Test Promise</button>
-    
 </body>
 </html>
