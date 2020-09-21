@@ -247,7 +247,7 @@
                 }
             });
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count%28Id%29+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true");
-        xhr.setRequestHeader("Authorization", "Bearer " + process.env.SF_Token);
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQBfYhLHDIqwKkjRx9uiVVcUuSgiwYFNFePogsZbf50VK0ZYYm6noZ0jqmICbtY6OWEhDu6ULcN3qNQ.tHq7.C.lKQqK.");
         xhr.send(data);
 
     };
@@ -266,7 +266,7 @@
             });
 
         xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer" + process.env.SF_Token);
+        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQBfYhLHDIqwKkjRx9uiVVcUuSgiwYFNFePogsZbf50VK0ZYYm6noZ0jqmICbtY6OWEhDu6ULcN3qNQ.tHq7.C.lKQqK.");
         xhr.send(data);
 
     };
