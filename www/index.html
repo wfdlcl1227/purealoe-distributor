@@ -162,7 +162,7 @@
             console.log('maxQueueNum==>' + settings.maxQueueNum);
             console.log('currentQueueNum==>' + settings.currentQueueNum);
 
-            if(settings.maxQueueNum < settings.currentQueueNum){
+            if(settings.maxQueueNum <= settings.currentQueueNum){
 
                 if(document.getElementById("lc-contact-btn")) return;
 
