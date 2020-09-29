@@ -156,44 +156,9 @@
             }
 
           
-        });           
+        });                      
 
-        embedded_svc.addEventHandler("onQueueUpdate", function(data) {
-            console.log('maxQueueNum==>' + settings.maxQueueNum);
-            console.log('currentQueueNum==>' + settings.currentQueueNum);
-
-            if(settings.maxQueueNum <= settings.currentQueueNum){
-
-                if(document.getElementById("lc-contact-btn")) return;
-
-                //var msg = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateContent > div.queuePositionContent.queuePositionWaiting.embeddedServiceLiveAgentQueuePosition > div.queuePositionMessage > p");
-
-                var btn = document.createElement("button");
-                btn.className = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
-                btn.id = "lc-contact-btn";
-                switch (settings.language) {
-                case "zh_CN":
-                    btn.innerText = '联络我们';
-                    //msg.innerText += '您亦可选择“联络我们”, 以提交商品预留要求，我们会尽快回复。'
-                    break;
-                case "zh_HK":
-                    btn.innerText = '聯絡我們';
-                    //msg.innerText += '您可選擇“聯絡我們”，以提交商品預留要求，我們會盡快回覆。';
-                    break;
-                default:
-                    btn.innerText = 'Contact Us';
-                    //msg.innerText += 'you could press the \"Contact Us\" button and leave your reservation request. We will get back to you as soon as possible.';
-                }
-
-                btn.onclick = function(){
-                    window.open("https://hkia.mp.sit.acnhk.com/"+settings.language+"/contact-us", "_blank"); 
-                }
-                document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append(btn);
-            }
-
-        });
-
-        embedded_svc.init(  
+        embedded_svc.init(
             settings.myDomainURL,
             settings.communityURL,
             gslbBaseURL,
@@ -241,46 +206,8 @@
 
     }
 
-
-    var getCurrentQueueNumber = function() {
-        var data = null;
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function () {
-                if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
-                    var ret = JSON.parse(this.responseText);
-                    if(ret.currentQueueNumber!=null && ret.currentQueueNumber !="" && ret.currentQueueNumber != 'undefined'){
-                        settings.currentQueueNum = ret.currentQueueNumber;
-                    }    
-                }
-            });
-        xhr.open("GET", settings.urlShortenURL+"/luxuryreserve/currentQueueNumber");
-        xhr.send(data);
-    };
-
-
-    var getMaxQueueNumber = function() {
-        var data = null;
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function () {
-                if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
-                    var ret = JSON.parse(this.responseText);
-                    if(ret.maxQueueNumber!=null && ret.maxQueueNumber !="" && ret.maxQueueNumber != 'undefined'){
-                        settings.maxQueueNum = ret.maxQueueNumber;
-                    }
-                }
-            });
-
-        xhr.open("GET", settings.urlShortenURL+"/maxQueueNumber");
-        xhr.send(data);
-
-    };
-
-    function getQueueNumber(){
-        getMaxQueueNumber();
-        getCurrentQueueNumber();
-    }
-
     var StartChat = function() {
+
             settings = {
                     env:"SIT",
                     //language:"zh_CN",//need to be set
@@ -294,12 +221,9 @@
                     gslbBaseURL:"https://service.force.com", //hardcode
                     surveyURL:"", //hardcode
                     surveyEndPointURL:"https://sit.api.iss.acnhk.com/loyalty/survey/liveChatUrl/", //hardcode
-                    urlShortenURL:"https://sit.api.iss.acnhk.com/core/livechat",
                     baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
-                    extraPrechatFormDetails:[],
-                    currentQueueNum:0, //NO need to be set
-                    maxQueueNum:0, //NO need to be set
+                    extraPrechatFormDetails:[]
                     }
 
         var e = window.event;                
@@ -310,13 +234,12 @@
 
         settings.language = document.getElementById("languageSelect").value;
 
+
+
         settings.extraPrechatFormDetails = [{"label": "Member Number","value": settings.membernumber,"displayToAgent": true},
                              {"label": "language","value": settings.language ,"displayToAgent": true, "transcriptFields": ["Preferred_Communication_Language__c"],},
                              {"label": "Chat Type","value": settings.buttonType,"displayToAgent": true, "transcriptFields": ["Type__c"],},
                              {"label": "Chat Channel","value": settings.channel,"displayToAgent": true, "transcriptFields": ["Channel__c"],}];         
-
-        // get current queue number and max queue number
-        getQueueNumber();
 
         if (!window.embedded_svc) {
             var s = document.createElement('script');
@@ -325,15 +248,18 @@
             s.onload = function() {
                 routeButton();
                 initESW(null);
+                
             };
             document.body.appendChild(s);
         } else {
+                
             routeButton();
             embedded_svc.settings.language = document.getElementById("languageSelect").value ;
             embedded_svc.settings.directToButtonRouting = function() {
                     return settings.buttonId;
             }
             embedded_svc.onHelpButtonClick();
+
         }
     }
 
@@ -345,5 +271,7 @@
   <option value ="zh_HK">zh_HK</option>
 </select><br/><br/><br/>
 <button type="button" onclick="StartChat()">Lux</button>
+
+    
 </body>
 </html>
