@@ -248,16 +248,13 @@
         xhr.addEventListener("readystatechange", function () {
                 if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
                     var ret = JSON.parse(this.responseText);
-                    if(ret.records[0].expr0!=null && ret.records[0].expr0 !="" && ret.records[0].expr0 != 'undefined'){
-                        settings.currentQueueNum = ret.records[0].expr0;
+                    if(ret.currentQueueNumber!=null && ret.currentQueueNumber !="" && ret.currentQueueNumber != 'undefined'){
+                        settings.currentQueueNum = ret.currentQueueNumber;
                     }    
-                    
                 }
             });
-        xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+Count(Id)+from+PendingServiceRouting+where+IsPushed+=+false+and+IsReadyForRouting+=+true+and+Queue.DeveloperName+like+%27LiveChat_Lux%25%27");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQHc_DT0.AL22eZO55oEGtYQlnXL8CSvDYjkdAolj6sjXM7RtcH5djLIzeQa.j0Rr2uE2RiXtQxLx8unEJ6AbPBKBPA__");
+        xhr.open("GET", settings.urlShortenURL+"/luxuryreserve/currentQueueNumber");
         xhr.send(data);
-
     };
 
 
@@ -267,14 +264,13 @@
         xhr.addEventListener("readystatechange", function () {
                 if(this.responseText!=null && this.responseText !="" && this.responseText != 'undefined'){
                     var ret = JSON.parse(this.responseText);
-                    if(ret.records[0].LiveChat_Display_ContactUs_Number__c!=null && ret.records[0].LiveChat_Display_ContactUs_Number__c !="" && ret.records[0].LiveChat_Display_ContactUs_Number__c != 'undefined'){
-                        settings.maxQueueNum = ret.records[0].LiveChat_Display_ContactUs_Number__c;
+                    if(ret.maxQueueNumber!=null && ret.maxQueueNumber !="" && ret.maxQueueNumber != 'undefined'){
+                        settings.maxQueueNum = ret.maxQueueNumber;
                     }
                 }
             });
 
-        xhr.open("GET", "https://hkairportloyalty--sit.my.salesforce.com/services/data/v48.0/query/?q=Select+LiveChat_Display_ContactUs_Number__c+from+Business_Settings__c+where+LiveChat_Display_ContactUs_Number__c+!=+NULL+LIMIT+1");
-        xhr.setRequestHeader("Authorization", "Bearer 00DO00000053jxe!AQQAQHc_DT0.AL22eZO55oEGtYQlnXL8CSvDYjkdAolj6sjXM7RtcH5djLIzeQa.j0Rr2uE2RiXtQxLx8unEJ6AbPBKBPA__");
+        xhr.open("GET", settings.urlShortenURL+"/maxQueueNumber");
         xhr.send(data);
 
     };
@@ -298,6 +294,7 @@
                     gslbBaseURL:"https://service.force.com", //hardcode
                     surveyURL:"", //hardcode
                     surveyEndPointURL:"https://sit.api.iss.acnhk.com/loyalty/survey/liveChatUrl/", //hardcode
+                    urlShortenURL:"https://sit.api.iss.acnhk.com/core/livechat",
                     baseLiveAgentURL:"https://d.la1-c1cs-hnd.salesforceliveagent.com/chat", //hardcode
                     baseLiveAgentContentURL:"https://c.la1-c1cs-hnd.salesforceliveagent.com/content", //hardcode
                     extraPrechatFormDetails:[],
