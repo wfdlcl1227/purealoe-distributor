@@ -159,7 +159,7 @@
         });           
         //Added for CR-1078 20200929 Start
         embedded_svc.addEventHandler("onQueueUpdate", function(data) {
-            if(settings.maxQueueNum <= settings.currentQueueNum){
+            if(parseInt(settings.maxQueueNum) <= parseInt(settings.currentQueueNum)){
                 if(document.getElementById("lc-contact-btn")) return;
                 var btn = document.createElement("button");
                 btn.className = "dialogButton dialog-button-0 uiButton embeddedServiceSidebarButton";
