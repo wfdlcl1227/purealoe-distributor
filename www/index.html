@@ -177,7 +177,8 @@
                 btn.onclick = function(){
                     window.open("https://hkia.mp.sit.acnhk.com/"+settings.language+"/contact-us", "_blank"); 
                 }
-                document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer").append(btn);
+                var waitingStateButtonContainer = document.querySelector("body > div.modalContainer.sidebarMaximized.layout-docked.embeddedServiceSidebar > div > div > div.activeFeature.hideWhileLoading > div > div > div > div.waitingStateButtonContainer");
+                waitingStateButtonContainer.append(btn);
             }
         });
         //Added for CR-1078 20200929 End
